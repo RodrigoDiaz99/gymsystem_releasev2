@@ -30,7 +30,7 @@ class CreateControlPesosTable extends Migration
             $table->string('brazo_izq');
             $table->string('pierna_der');
             $table->string('pierna_izq');
-            $table->foreignId('expedintes_id')->constrained();
+            $table->foreignId('expedientes_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

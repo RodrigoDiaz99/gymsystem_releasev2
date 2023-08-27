@@ -14,6 +14,7 @@ class CreateExpedientesTable extends Migration
     public function up()
     {
         Schema::create('expedientes', function (Blueprint $table) {
+            $table->id();
             $table->dateTime('date_interview')->nullable();
             //Enfermedades cronicas//
             $table->boolean('hipertension')->nullable();

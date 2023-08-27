@@ -15,12 +15,9 @@ class CreateExpedienteFotosTable extends Migration
     {
         Schema::create('expediente_fotos', function (Blueprint $table) {
             $table->id();
-
-            $table->text('path');
-            $table->timestamps();
-            $table->foreignId('records_id')->nullable()->constrained();
+            $table->text('ruta');
+            $table->foreignId('expedientes_id')->constrained();
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

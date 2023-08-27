@@ -33,7 +33,7 @@ class CreateHabitosPsicobiologicosTable extends Migration
             $table->boolean('gasolina')->nullable();
             $table->boolean('thiner')->nullable();
             $table->boolean('cristal')->nullable();
-            $table->foreignId('expedientes_id')->constrained();
+           $table->foreignId('expedientes_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
