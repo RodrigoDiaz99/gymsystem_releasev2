@@ -5,6 +5,7 @@
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
   <script>
       var ctx1 = document.getElementById("chart-line").getContext("2d");
 
