@@ -8,13 +8,16 @@
         <!-- Navbar -->
         @include('layouts.navbar')
         <!-- End Navbar -->
+
         <div class="container-fluid py-4">
             @yield('content')
+
             @include('layouts.footer')
         </div>
     </main>
     @include('layouts.plugin')
     @include('layouts.scripts')
+    @include('layouts.mensajes')
     @yield('scripts')
 </body>
 

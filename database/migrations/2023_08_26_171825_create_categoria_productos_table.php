@@ -16,6 +16,7 @@ class CreateCategoriaProductosTable extends Migration
         Schema::create('categoria_productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_categoria');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

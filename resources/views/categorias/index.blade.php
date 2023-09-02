@@ -28,7 +28,13 @@
         </div>
     </div>
 @include('categorias.modales.create')
+@include('categorias.modales.edit')
 @endsection
 @section('scripts')
     <script src="{{ asset('js/modulos/categorias/categorias.js') }}"></script>
+    <script>
+        let getCategorias = "{{route('categorias.getCategorias')}}";
+        let CategoriasUpdate = "{{route('categorias.update')}}";
+        let categoriasEditRoute = @json(route('categorias.edit', ''));
+    </script>
 @endsection
