@@ -14,7 +14,7 @@ class CategoriaProductosController extends Controller
         return view('categorias.index');
     }
 
-    public function getCategorias(Request $request)
+    public function getCategorias()
     {
         $getCategoria = CategoriaProductos::orderByDesc('created_at')->get();
         return $getCategoria;

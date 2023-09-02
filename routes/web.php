@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,13 @@ Route::controller(CategoriaProductosController::class)->prefix('categorias')->gr
     Route::post('create', 'create')->name('categorias.create');
     Route::put('edit/{id}', 'edit')->name('categorias.edit');
     require __DIR__ . '/ajax/categoriaproductos.php';
+
+});
+
+Route::controller(ProveedoresController::class)->prefix('proveedores')->group(function () {
+    Route::get('inicio', 'index')->name('proveedores.index');
+    Route::post('create', 'create')->name('proveedores.create');
+    Route::put('update/{id}', 'update')->name('proveedores.update');
+    require __DIR__ . '/ajax/proveedores.php';
 
 });
