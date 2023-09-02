@@ -24,8 +24,8 @@ class CreateProductosTable extends Migration
             $table->integer('alerta_minima')->nullable();
             $table->integer('alert_maxima')->nullable();
             $table->double('precio_venta')->nullable();
-            $table->foreignId('creado_por')->constrained('users');
-            $table->foreignId('productos_id')->constrained();
+            $table->foreignId('users_id')->constrained('users');
+
             $table->enum('estatus', ['Solicitado', 'Comprado', 'Empaquetado', 'En camino', 'Disponible'])->default('Solicitado');
             $table->timestamps();
             $table->softDeletes();
