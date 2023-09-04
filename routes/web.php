@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,5 +44,14 @@ Route::controller(ProveedoresController::class)->prefix('proveedores')->group(fu
     Route::post('create', 'create')->name('proveedores.create');
     Route::put('update/{id}', 'update')->name('proveedores.update');
     require __DIR__ . '/ajax/proveedores.php';
+
+});
+
+
+Route::controller(ProductosController::class)->prefix('productos')->group(function () {
+    Route::get('inicio', 'index')->name('productos.index');
+    Route::post('create', 'create')->name('productos.create');
+    Route::put('update/{id}', 'update')->name('productos.update');
+    require __DIR__ . '/ajax/productos.php';
 
 });
