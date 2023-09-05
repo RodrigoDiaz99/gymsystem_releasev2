@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,3 +57,10 @@ Route::controller(ProductosController::class)->prefix('productos')->group(functi
     require __DIR__ . '/ajax/productos.php';
 
 });
+
+
+Route::controller(UsuariosController::class)->prefix('Usuarios')->group(function () {
+    Route::get('inicio', 'index')->name('usuarios.index');
+    require __DIR__ . '/ajax/usuarios.php';
+});
+
