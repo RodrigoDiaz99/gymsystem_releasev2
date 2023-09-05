@@ -18,65 +18,76 @@ $(function () {
         search: true,
         pageSize: 10,
         columns: [
-            { field: "id", title: "iIDCategoria", visible: false },
-            { field: "nombre_categoria", title: "Nombre", visible: true },
+            { field: "id", title: "ID", visible: true },
+            { field: "nombre_producto", title: "Nombre", visible: true },
 
             {
-                field: "created_at",
-                title: "Fecha Creacion",
-
+                field: "inventario",
+                title: "Inventario",
+                formatter: "inventarioFormatter",
                 visible: true,
             },
             {
-                field: "cedicion",
-                title: "Acciones",
+                field: "codigo_barras",
+                title: "Codigo",
+            },
+            {
+                field: "cantidad_producto",
+                title: "Cantidad",
+                formatter: "cantidadFormatter",
+            },
+            {
+                field: "precio_venta",
+                title: "Precio Venta",
                 formatter: "accionesFormatter",
             },
         ],
         onLoadSuccess: (data) => {},
     });
-    $('#inventario').change(function() {
-        if(this.checked) {
-            $('#camposCantidadAlertas').show();
+    $("#inventario").change(function () {
+        if (this.checked) {
+            $("#camposCantidadAlertas").show();
+            $('input[name="inventario"]').val("1");
         } else {
-            $('#camposCantidadAlertas').hide();
+            $("#camposCantidadAlertas").hide();
+            $('input[name="inventario"]').val("0");
         }
     });
-    $('#formCreateProductos').submit(function(event) {
+
+    $("#formCreateProductos").submit(function (event) {
         // Validar campos manualmente si es necesario
-        if ($('#inventario').is(':checked')) {
-            let cantidad = $('#cantidad_product').val();
-            let alertaMinima = $('#alerta_min').val();
-            let alertaMaxima = $('#alerta_max').val();
+        if ($("#inventario").is(":checked")) {
+            let cantidad = $("#cantidad_product").val();
+            let alertaMinima = $("#alerta_min").val();
+            let alertaMaxima = $("#alerta_max").val();
 
-            if (cantidad === '' || alertaMinima === '' || alertaMaxima === '') {
+            if (cantidad === "" || alertaMinima === "" || alertaMaxima === "") {
                 // Mostrar mensajes de error debajo de los campos vacíos
-                if (cantidad === '') {
-                    $('#error-cantidad').text('Este campo es obligatorio.');
+                if (cantidad === "") {
+                    $("#error-cantidad").text("Este campo es obligatorio.");
                 } else {
-                    $('#error-cantidad').text('');
+                    $("#error-cantidad").text("");
                 }
 
-                if (alertaMinima === '') {
-                    $('#error-alertaMinima').text('Este campo es obligatorio.');
+                if (alertaMinima === "") {
+                    $("#error-alertaMinima").text("Este campo es obligatorio.");
                 } else {
-                    $('#error-alertaMinima').text('');
+                    $("#error-alertaMinima").text("");
                 }
 
-                if (alertaMaxima === '') {
-                    $('#error-alertaMaxima').text('Este campo es obligatorio.');
+                if (alertaMaxima === "") {
+                    $("#error-alertaMaxima").text("Este campo es obligatorio.");
                 } else {
-                    $('#error-alertaMaxima').text('');
+                    $("#error-alertaMaxima").text("");
                 }
 
                 event.preventDefault(); // Evita que el formulario se envíe si hay campos faltantes
             } else {
                 // Limpiar los mensajes de error si todos los campos están completos
-                $('.error').text('');
+                $(".error").text("");
             }
         }
     });
-
 });
 function accionesFormatter(value, row) {
     let html = "";
@@ -85,6 +96,28 @@ function accionesFormatter(value, row) {
     html += `<a rel="tooltip" title="Editar" class="btn btn-warning" href="javascript:void(0)" onclick="EditarCategoria(${iIDCategoria})"><i class="fas fa-edit"></i></a>&nbsp`;
 
     return html;
+}
+function inventarioFormatter(value, row) {
+    const inventario = row.inventario;
+
+    if (inventario === 0) {
+        return "No requiere";
+    } else if (inventario === 1) {
+        return "Sí requiere";
+    } else {
+        // Si el valor no es 0 ni 1, puedes manejarlo como desees.
+        return "Valor desconocido";
+    }
+}
+function cantidadFormatter(value, row) {
+    const inventario = row.inventario;
+    const cantidad = row.cantidad_producto;
+    const estatus = row.estatus;
+    if (inventario === 0) {
+        return estatus;
+    } else if (inventario === 1) {
+        return cantidad;
+    }
 }
 function EditarCategoria(iIDCategoria) {
     $.ajax({
