@@ -5,6 +5,9 @@
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+  <script src="{{ asset('assets/js/plugins/moment-with-locales.js') }}"></script>
+  <script src="{{ asset('assets/js/plugins/jquery.validate.min.js') }}"></script>
+
   <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
     <script src="//unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>

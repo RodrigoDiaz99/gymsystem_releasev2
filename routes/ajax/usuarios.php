@@ -1,4 +1,6 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-Route::post('getCategorias', 'getCategorias')->name('categorias.getCategorias');
-Route::get('getRoles', 'getRoles')->name('roles.getRoles');
+
+Route::get('getUsers', 'getUsers')->name('usuarios.getUsers');
+Route::post('saveUser', 'saveUser')->name('usuario.saveUser');
