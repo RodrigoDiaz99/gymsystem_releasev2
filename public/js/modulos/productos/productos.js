@@ -39,6 +39,11 @@ $(function () {
             {
                 field: "precio_venta",
                 title: "Precio Venta",
+
+            },
+            {
+                field: "precio_venta",
+                title: "Precio Venta",
                 formatter: "accionesFormatter",
             },
         ],
@@ -91,9 +96,9 @@ $(function () {
 });
 function accionesFormatter(value, row) {
     let html = "";
-    const iIDCategoria = row.id;
+    const iIDProducto = row.id;
     console.log(row);
-    html += `<a rel="tooltip" title="Editar" class="btn btn-warning" href="javascript:void(0)" onclick="EditarCategoria(${iIDCategoria})"><i class="fas fa-edit"></i></a>&nbsp`;
+    html += `<a rel="tooltip" title="Editar" class="btn btn-warning" href="javascript:void(0)" onclick="EditarProducto(${iIDProducto})"><i class="fas fa-edit"></i></a>&nbsp`;
 
     return html;
 }
@@ -119,15 +124,15 @@ function cantidadFormatter(value, row) {
         return cantidad;
     }
 }
-function EditarCategoria(iIDCategoria) {
+function EditarProducto(iIDProducto) {
     $.ajax({
-        url: CategoriasUpdate,
+        url: productosEdit,
         type: "POST",
         encoding: "UTF-8",
         async: true,
         cache: false,
         data: {
-            iIDCategoria: iIDCategoria,
+            iIDProducto: iIDProducto,
         },
         beforeSend: function () {
             NProgress.start();
@@ -143,9 +148,9 @@ function EditarCategoria(iIDCategoria) {
         success: function (data) {
             swal.close();
             NProgress.done();
-            const iIDCategoria = data.id;
+            const iIDProducto = data.id;
             const NombreCategoria = data.nombre_categoria;
-            const url = `${categoriasEditRoute}/${iIDCategoria}`;
+            const url = `${productosUpdateroute}/${iIDProducto}`;
             // Actualiza la acción del formulario con la URL completa
             const editarCategoriaForm = $("#editarCategoriaForm");
             editarCategoriaForm.attr("action", url);

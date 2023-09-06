@@ -34,7 +34,7 @@
     <script src="{{ asset('js/modulos/productos/productos.js') }}"></script>
     <script>
         let getProductos = "{{route('productos.getProductos')}}";
-        let proveedoresEdit = "{{route('productos.edit')}}";
-        let proveedoresUpdateroute = @json(route('productos.update', ''));
+        let productosEdit = "{{route('productos.edit')}}";
+        let productosUpdateroute = @json(route('productos.update', ''));
     </script>
 @endsection
