@@ -10,5 +10,6 @@
         let urlGetRoles = "{{ route('roles.getRoles') }}"
         let urlGetUsers = "{{ route('usuarios.getUsers') }}"
         let urlSaveUser = "{{ route('usuario.saveUser') }}"
+        let urlGetUserData = "{{ route('usuario.getUserData') }}"
     </script>
 @endsection

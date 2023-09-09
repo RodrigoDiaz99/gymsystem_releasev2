@@ -8,8 +8,7 @@
             </div>
             <div class="modal-body">
                 <input id="user_id" type="hidden" name="user_id" value="">
-                <form id="usuarioForm" action="" method="POST">
-                    @method('post')
+                <form id="usuarioForm">
                     <div class="modal-body">
                         @csrf
 
@@ -118,7 +117,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                        <button type="button" onclick="saveUser()" class="btn btn-success"><strong>Guardar</strong></button>
+                        <button type="submit" class="btn btn-success"><strong>Guardar</strong></button>
                     </div>
                 </form>
             </div>

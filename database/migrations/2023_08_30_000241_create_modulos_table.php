@@ -16,6 +16,7 @@ class CreateModulosTable extends Migration
         Schema::create('modulos', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
+            $table->string("url");
             $table->string("descripcion")->nullable();
             $table->string("icono")->nullable();
             $table->boolean("esPadre");

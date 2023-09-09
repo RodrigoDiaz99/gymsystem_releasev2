@@ -9,17 +9,15 @@
 
     </div>
     <div class="row">
-        <div class="row mt-4">
-            <div class="col-md">
-                <div class="card">
-                    <div class="card-header pb-0 p-3">
-                        <h6 class="mb-0">Usuarios</h6>
-                    </div>
-                    <div class="card-body p-3">
-                        <table id="gridUsuarios" class="table align-items-center">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-header pb-0 p-3">
+                    <h6 class="mb-0">Usuarios</h6>
+                </div>
+                <div class="card-body p-3">
+                    <table id="gridUsuarios" class="table align-items-center">
 
-                        </table>
-                    </div>
+                    </table>
                 </div>
             </div>
         </div>
