@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -42,11 +43,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function productosCreados()
-{
-    return $this->hasMany(Producto::class, 'users_id');
-}
+    {
+        return $this->hasMany(Producto::class, 'users_id');
+    }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Roles::class, 'roles_id');
+    }
+
+    public function permisos()
+    {
+        return $this->belongsToMany(Permisos::class, 'users_has_permisos');
+    }
+
+    public static function getPermisos()
+    {
+        $authUser = Auth::user();
+        $user = User::with('permisos.modulos')->find($authUser->id);
+
+        return $user;
     }
 }

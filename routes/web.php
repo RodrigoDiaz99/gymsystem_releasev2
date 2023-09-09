@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\HomeController;
@@ -34,7 +35,7 @@ Route::get('login', function () {
 });
 Route::get('/inicio', [HomeController::class, 'index'])->name('home');
 
-Route::controller(CategoriaProductosController::class)->prefix('categorias')->group(function () {
+Route::middleware('permisos')->controller(CategoriaProductosController::class)->prefix('categorias')->group(function () {
     Route::get('inicio', 'index')->name('categorias.index');
     Route::post('create', 'create')->name('categorias.create');
     Route::put('edit/{id}', 'edit')->name('categorias.edit');
@@ -60,12 +61,19 @@ Route::controller(ProductosController::class)->prefix('productos')->group(functi
 });
 
 
-Route::controller(UsuariosController::class)->prefix('Usuarios')->group(function () {
+Route::middleware('permisos')->controller(UsuariosController::class)->prefix('usuarios')->group(function () {
     Route::get('inicio', 'index')->name('usuarios.index');
     require __DIR__ . '/ajax/usuarios.php';
 });
 
-Route::controller(RolesController::class)->prefix('Roles')->group(function () {
+Route::controller(RolesController::class)->prefix('roles')->group(function () {
     require __DIR__ . '/ajax/roles.php';
 });
 
+Route::controller(AdministracionController::class)->prefix('administracion')->group(function () {
+    Route::get('modulos', 'modulos')->name('administracion.modulos');
+    Route::get('getModulos', 'getModulos')->name('administracion.getModulos');
+    Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
+    Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
+
+});
