@@ -9,4 +9,8 @@ class Modulos extends Model
 {
     use HasFactory;
 
+    public function submodulos()
+    {
+        return $this->hasMany(Modulos::class, 'modulo_padre');
+    }
 }

@@ -17,4 +17,6 @@ class Permisos extends Model
     {
         return $this->belongsTo(Modulos::class, 'modulo_id');
     }
+
+
 }

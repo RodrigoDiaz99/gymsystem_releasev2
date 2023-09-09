@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modulos;
+use App\Models\Permisos;
 use App\Models\Roles;
 use App\Models\User;
 use Exception;
@@ -83,5 +85,55 @@ class UsuariosController extends Controller
                 'cTrace' => $ex->getTrace()
             ]);
         }
+    }
+
+    public function getPermisosUsuario(Request $request)
+    {
+        try {
+            if ($request->user_id != '' || $request->user_id != null) {
+
+                $user = User::with('permisos.modulos')->find($request->user_id); //
+                $permisosUsuario = $user->permisos;
+            }
+            $lstPermisos = [];
+            foreach ($permisosUsuario as $permiso) {
+                $permiso = [
+                    'id' => $permiso->pivot->id,
+                    'text' => $permiso->modulos->descripcion,
+                    'permiso_id' => $permiso->pivot->permisos_id,
+                    'user_id' => $permiso->pivot->user_id,
+                    'checked' => is_null($permiso->pivot->deleted_at) ? true : false,
+                    'children' => $this->getSubmodulos($permiso->modulos->id)
+
+                ];
+                $lstPermisos[] = $permiso;
+            }
+            return $lstPermisos;
+        } catch (Exception $ex) {
+            return response()->json([
+                'lSuccess' => false,
+                'cMensaje' => $ex->getMessage(),
+                'cTrace' => $ex->getTrace()
+            ]);
+        }
+    }
+
+    public function getSubmodulos($modulo_padre)
+    {
+        $submodulos = Modulos::where('deleted_at', null)
+            ->where('esPadre', 0)
+            ->where('modulo_padre', $modulo_padre)->get();
+        $lstSubmodulos = [];
+        foreach ($submodulos as $submodulo) {
+            $permiso = [
+                'id' => $submodulo->id,
+                'text' => $submodulo->descripcion,
+                'permiso_id' => $submodulo->permisos_id,
+                'user_id' => $submodulo->user_id,
+                'checked' => is_null($submodulo->deleted_at) ? true : false,
+            ];
+            $lstSubmodulos[] = $permiso;
+        }
+        return $lstSubmodulos;
     }
 }

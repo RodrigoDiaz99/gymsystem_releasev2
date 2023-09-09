@@ -1,3 +1,4 @@
+var permisosTree
 $(function () {
     $.ajaxSetup({
         headers: {
@@ -7,7 +8,22 @@ $(function () {
     crearBootstrapTables();
     obtenerRoles();
     jQueryValidator();
+
+    permisosTree = $('#permisosTree').tree({
+        primaryKey: 'id',
+        uiLibrary: 'materialdesign',
+        dataSource: {
+            url: urlObtenerPermisosUsuario,
+            type: 'post',
+            data: {
+                user_id: ''
+            },
+            processData: true
+        },
+        checkboxes: true
+    });
 });
+
 
 //#region crear bootstrapTables
 function crearBootstrapTables() {
@@ -88,51 +104,7 @@ function saveUser() {
         fecha_nacimiento: $("#fecha_nacimiento").val(),
         ocupacion: $("#ocupacion").val()
     };
-    $.ajax({
-        url: urlSaveUser,
-        type: "POST",
-        encoding: "UTF-8",
-        cache: false,
-        data: data,
-        beforeSend: function () {
 
-            Swal.fire({
-                title: 'Guardando',
-                text: 'Espere un momento...',
-                didOpen: () => {
-                    swal.showLoading();
-                },
-            });
-        },
-        success: function (data) {
-            if (data.lSuccess) {
-                $("#usuarioModal").modal('hide');
-                Swal.close();
-                Swal.fire({
-                    icon: 'success',
-                    title: "¡Correcto!",
-                    text: data.cMensaje,
-
-                })
-                $("#gridUsuarios").bootstrapTable("refresh");
-            } else {
-                Swal.close();
-                Swal.fire({
-                    icon: 'error',
-                    title: "Error",
-                    text: data.cMensaje,
-                })
-            }
-        },
-        error: function () {
-            Swal.close();
-            Swal.fire({
-                icon: 'error',
-                title: "Error",
-                text: "Ocurrió un error no controlado. Intente de nuevo.",
-            })
-        }
-    });
 }
 
 function getUserData(user_id) {
@@ -211,6 +183,14 @@ function obtenerRoles() {
         },
     });
 }
+
+function getPermisosUsuario(id) {
+
+    permisosTree.reload({ user_id: id });
+    $("#permisosModal").modal("show");
+
+
+}
 //#endregion
 
 //#region formatters
@@ -219,6 +199,7 @@ function accionesFormatter(value, row) {
 
     let htmlHeader = '<div>';
     html += '<button type="button" class="btn btn-primary m-auto" onclick="getUserData(' + row.id + ')"><i class="fas fa-edit"></i></button>';
+    html += '<button type="button" class="btn btn-primary m-auto" onclick="getPermisosUsuario(' + row.id + ')"><i class="fas fa-edit"></i></button>';
     let htmlFooter = '</div>';
     return htmlHeader + html + htmlFooter;
 }

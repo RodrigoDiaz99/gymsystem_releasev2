@@ -54,10 +54,10 @@ class User extends Authenticatable
 
     public function permisos()
     {
-        return $this->belongsToMany(Permisos::class, 'users_has_permisos');
+        return $this->belongsToMany(Permisos::class, 'users_has_permisos')->withPivot('id', 'deleted_at');
     }
 
-    public static function getPermisos()
+    public static function getPermisosCurrentUser()
     {
         $authUser = Auth::user();
         $user = User::with('permisos.modulos')->find($authUser->id);

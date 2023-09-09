@@ -30,7 +30,7 @@ class AdministracionController extends Controller
             $modulo->url = $request->modulo_url;
             $modulo->descripcion = $request->modulo_descripcion;
             $modulo->icono = $request->modulo_icono;
-            $modulo->esPadre = (int)$request->modulo_esPadre;
+            $modulo->esPadre = (int)filter_var($request->modulo_esPadre, FILTER_VALIDATE_BOOLEAN);;
             $modulo->modulo_padre = $request->modulo_modulo_padre;
             $modulo->save();
 
