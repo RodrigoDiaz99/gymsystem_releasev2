@@ -15,18 +15,21 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_barras')->unique();
             $table->string('nombre_producto')->unique();
-            $table->foreignId('proveedores_id')->nullable()->constrained();
-            $table->foreignId('categoria_productos_id')->nullable()->constrained();
+            $table->string('codigo_barras')->unique();
             $table->boolean('inventario')->default(false);
+
             $table->integer('cantidad_producto');
             $table->integer('alerta_minima')->nullable();
-            $table->integer('alert_maxima')->nullable();
-            $table->double('precio_venta')->nullable();
-            $table->foreignId('creado_por')->constrained('users');
-            $table->foreignId('productos_id')->constrained();
+            $table->integer('alerta_maxima')->nullable();
+
+            $table->double('precio_venta');
+            $table->foreignId('users_id')->constrained('users');
             $table->enum('estatus', ['Solicitado', 'Comprado', 'Empaquetado', 'En camino', 'Disponible'])->default('Solicitado');
+
+            $table->foreignId('proveedores_id')->nullable()->constrained();
+            $table->foreignId('categoria_productos_id')->nullable()->constrained();
+
             $table->timestamps();
             $table->softDeletes();
         });

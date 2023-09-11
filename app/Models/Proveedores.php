@@ -16,5 +16,8 @@ class Proveedores extends Model
         'numero_telefono',
         'rfc',
     ];
-
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'proveedores_id');
+    }
 }
