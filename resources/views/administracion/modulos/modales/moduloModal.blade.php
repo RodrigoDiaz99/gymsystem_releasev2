@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Nombre <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="nombre" class="form-control " type="text" name="nombre" value="" placeholder="">
+                                    <input id="nombre" class="form-control " type="text" name="nombre" value="" placeholder="Usuarios">
                                 </div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Ícono <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="icon" class="form-control " type="text" name="icon" value="" placeholder="icon">
+                                    <input id="icon" class="form-control " type="text" name="icon" value="" placeholder="fas fa-user">
                                 </div>
                             </div>
                         </div>
@@ -39,16 +39,16 @@
                                 <label class="text-primary ">URL Base <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group input-group-alternative">
-                                        <input id="urlBase" class="form-control " type="text" name="urlBase" value="" placeholder="urlBase">
+                                        <input id="urlBase" class="form-control " type="text" name="urlBase" value="" placeholder="/usuarios">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="text-primary ">Url completa <span class="text-danger">*</span></label>
+                                <label class="text-primary ">Url inicial <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="url" class="form-control " type="text" name="url" value="" placeholder="url">
+                                    <input id="url" class="form-control " type="text" name="url" value="" placeholder="/usuarios/inicio">
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <label class="text-primary ">Nombre<span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
                                     <input id="permiso_nombre" class="form-control " type="text" name="permiso_nombre" value=""
-                                        placeholder="permiso_nombre">
+                                        placeholder="Permiso para acceder al módulo de usuarios">
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Clave identificadora<span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="clave" class="form-control " type="text" name="clave" value="" placeholder="clave">
+                                    <input id="clave" class="form-control " type="text" name="clave" value="" placeholder="MOD_USUARIOS">
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 <label class="text-primary ">Descripcion</label>
                                 <div class="input-group input-group-alternative">
                                     <input id="permiso_descripcion" class="form-control " type="text" name="permiso_descripcion" value=""
-                                        placeholder="permiso_descripcion">
+                                        placeholder="Permiso para acceder al módulo de usuarios">
                                 </div>
                             </div>
                         </div>
