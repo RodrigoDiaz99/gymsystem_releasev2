@@ -33,7 +33,7 @@ class ProductosController extends Controller
         $codigo_barra = $request->codigo_barras;
         $inventario = $request->inventario;
         $alerta_minina = $request->alerta_minima;
-        $alerta_maxima = $request->alert_maxima;
+        $alerta_maxima = $request->alerta_maxima;
         $precio_venta = $request->precio_venta;
         $estatus = $request->estatus;
         $proveedores_id = $request->proveedores_id;
@@ -70,7 +70,22 @@ class ProductosController extends Controller
                 with(['usuario:id,nombre,usuario', 'proveedor:id,nombre_proveedor', 'categoria:id,nombre_categoria'])
                 ->find($iIDProducto);
 
-            return response()->json($getProducto);
+            $array = array(
+                'id' => $getProducto->id,
+                'nombre_producto' => $getProducto->nombre_producto,
+                'codigo_barras' => $getProducto->codigo_barras,
+                'inventario' => $getProducto->inventario,
+                'cantidad_producto' => $getProducto->cantidad_producto,
+                'alerta_minima' => $getProducto->alerta_minima,
+                'alerta_maxima' => $getProducto->alerta_maxima,
+                'precio_venta' => $getProducto->precio_venta,
+                'estatus' => $getProducto->estatus,
+                'creado_por'=>$getProducto->nombre,
+                // 'proveedor'=>$getProducto->estatus,
+                // 'categoria'=>$getProducto->estatus
+
+            );
+            return response()->json($array);
         } catch (Exception $e) {
             $mensaje = array(
                 'iError' => true,
@@ -82,14 +97,31 @@ class ProductosController extends Controller
     public function update(ProductoRequest $request, $id)
     {
 
-        $nombre_proveedor = $request->nombre_proveedor;
-        $numero_telefono = !is_null($request->numero_telefono) ? $request->numero_telefono : 'S/N';
-        $rfc = !is_null($request->rfc) ? $request->rfc : 'S/RFC';
+        $nombre_producto = $request->nombre_producto;
+        $codigo_barra = $request->codigo_barras;
+        $inventario = $request->inventario;
+        $alerta_minina = $request->alerta_minima;
+        $alerta_maxima = $request->alerta_maxima;
+        $precio_venta = $request->precio_venta;
+        $estatus = $request->estatus;
+        $proveedores_id = $request->proveedores_id;
+        $categoria_producto = $request->categorias_id;
+        $cantidad_producto = !is_null($request->cantidad_producto) ? $request->cantidad_producto : 0;
         try {
             Productos::findOrFail($id)->update([
-                'nombre_proveedor' => $nombre_proveedor,
-                'numero_telefono' => $numero_telefono,
-                'rfc' => $rfc,
+
+                'nombre_producto' =>  $nombre_producto,
+                'codigo_barras' => $codigo_barra,
+                'inventario' => $inventario,
+                'cantidad_producto' => $cantidad_producto,
+                'alerta_minima' =>  $alerta_minina,
+                'alerta_maxima' =>$alerta_maxima,
+                'precio_venta' =>  $precio_venta,
+                'estatus' => $estatus,
+                'proveedores_id' => $proveedores_id,
+                'categoria_productos_id' => $categoria_producto,
+
+
             ]);
             return redirect()->back()->with('success', 'Modificacion Éxitosa!');
         } catch (\Throwable $e) {

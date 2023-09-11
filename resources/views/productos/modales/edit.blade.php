@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Creacion</h5>
@@ -95,8 +95,8 @@
                                         <div class="input-group input-group-alternative">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="inventario"
-                                                    id="inventario" value="1">
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="inventario_edit" value="1">
                                                 <input type="hidden" name="inventario" value="0">
                                                 <!-- Campo oculto con valor 0 -->
                                             </div>
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" id="camposCantidadAlertas" style="display: none;">
+                            <div class="row" id="camposCantidadAlertas_edit" style="display: none;">
                                 <div class="col-md-4">
                                     <div class="form-group mb-4">
                                         <label
@@ -127,7 +127,7 @@
                                             </span>
                                             <input
                                                 class="form-control @error('cantidad_producto') is-invalid @enderror"
-                                                type="text" name="cantidad_producto" id="cantidad_product"
+                                                type="text" name="cantidad_producto" id="cantidad_product_edit"
                                                 value="{{ old('cantidad_producto') }}" placeholder="Cantidad">
                                         </div>
                                         <span class="error" id="error-cantidad"></span>
@@ -152,7 +152,7 @@
                                                 </svg>
                                             </span>
                                             <input class="form-control @error('alerta_minima') is-invalid @enderror"
-                                                type="text" name="alerta_minima" id="alerta_min"
+                                                type="text" name="alerta_minima" id="alerta_min_edit"
                                                 value="{{ old('alerta_minima') }}" placeholder="Alerta Minima">
                                             <span class="error" id="error-alertaMinima"></span>
                                         </div>
@@ -178,7 +178,7 @@
                                             </span>
                                             <input class="form-control @error('alert_maxima') is-invalid @enderror"
                                                 type="text" name="alert_maxima" value="{{ old('alert_maxima') }}"
-                                                id="alerta_max" placeholder="Alerta Maxima">
+                                                id="alerta_max_edit" placeholder="Alerta Maxima">
                                             <span class="error" id="error-alertaMaxima"></span>
                                         </div>
                                         @error('alert_maxima')
