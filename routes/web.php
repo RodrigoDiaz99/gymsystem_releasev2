@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->name('loginScreen');
 
 Auth::routes(['register' => false, 'login' => false]);
 
@@ -33,47 +33,47 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::get('login', function () {
     abort(404, 'Pagina No encontrada'); // Esto mostrará un error 403 con el mensaje 'Acceso prohibido'
 });
+
 Route::get('/inicio', [HomeController::class, 'index'])->name('home');
 
-Route::middleware('permisos')->controller(CategoriaProductosController::class)->prefix('categorias')->group(function () {
-    Route::get('inicio', 'index')->name('categorias.index');
-    Route::post('create', 'create')->name('categorias.create');
-    Route::put('edit/{id}', 'edit')->name('categorias.edit');
-    require __DIR__ . '/ajax/categoriaproductos.php';
+// Encerrado en el middleware de auth y permisos para comprobar si inició sesión y tiene permisos de módulo
+Route::middleware(['auth', 'permisos'])->group(function () {
+    Route::controller(CategoriaProductosController::class)->prefix('categorias')->group(function () {
+        Route::get('inicio', 'index')->name('categorias.index');
+        Route::post('create', 'create')->name('categorias.create');
+        Route::put('edit/{id}', 'edit')->name('categorias.edit');
+        require __DIR__ . '/ajax/categoriaproductos.php';
+    });
 
-});
-
-Route::controller(ProveedoresController::class)->prefix('proveedores')->group(function () {
-    Route::get('inicio', 'index')->name('proveedores.index');
-    Route::post('create', 'create')->name('proveedores.create');
-    Route::put('update/{id}', 'update')->name('proveedores.update');
-    require __DIR__ . '/ajax/proveedores.php';
-
-});
-
-
-Route::controller(ProductosController::class)->prefix('productos')->group(function () {
-    Route::get('inicio', 'index')->name('productos.index');
-    Route::post('create', 'create')->name('productos.create');
-    Route::put('update/{id}', 'update')->name('productos.update');
-    require __DIR__ . '/ajax/productos.php';
-
-});
+    Route::controller(ProveedoresController::class)->prefix('proveedores')->group(function () {
+        Route::get('inicio', 'index')->name('proveedores.index');
+        Route::post('create', 'create')->name('proveedores.create');
+        Route::put('update/{id}', 'update')->name('proveedores.update');
+        require __DIR__ . '/ajax/proveedores.php';
+    });
 
 
-Route::middleware('permisos')->controller(UsuariosController::class)->prefix('usuarios')->group(function () {
-    Route::get('inicio', 'index')->name('usuarios.index');
-    require __DIR__ . '/ajax/usuarios.php';
-});
+    Route::controller(ProductosController::class)->prefix('productos')->group(function () {
+        Route::get('inicio', 'index')->name('productos.index');
+        Route::post('create', 'create')->name('productos.create');
+        Route::put('update/{id}', 'update')->name('productos.update');
+        require __DIR__ . '/ajax/productos.php';
+    });
 
-Route::controller(RolesController::class)->prefix('roles')->group(function () {
-    require __DIR__ . '/ajax/roles.php';
-});
 
-Route::controller(AdministracionController::class)->prefix('administracion')->group(function () {
-    Route::get('modulos', 'modulos')->name('administracion.modulos');
-    Route::get('getModulos', 'getModulos')->name('administracion.getModulos');
-    Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
-    Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
+    Route::controller(UsuariosController::class)->prefix('usuarios')->group(function () {
+        Route::get('inicio', 'index')->name('usuarios.index');
+        require __DIR__ . '/ajax/usuarios.php';
+    });
 
+    Route::controller(RolesController::class)->prefix('roles')->group(function () {
+        require __DIR__ . '/ajax/roles.php';
+    });
+
+    Route::controller(AdministracionController::class)->prefix('administracion')->group(function () {
+        Route::get('modulos', 'modulos')->name('administracion.modulos');
+        Route::get('getModulos', 'getModulos')->name('administracion.getModulos');
+        Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
+        Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
+    });
 });
