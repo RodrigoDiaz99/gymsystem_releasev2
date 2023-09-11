@@ -16,5 +16,5 @@ class TipoMembresia extends Model
         'precio',
         'descripcion_membresia',
         'dias_membresia',
-           ];
+    ];
 }
