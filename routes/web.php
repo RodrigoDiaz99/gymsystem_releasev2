@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\TipoMembresiaController;
 use App\Http\Controllers\UsuariosController;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Auth;
@@ -76,4 +77,13 @@ Route::middleware(['auth', 'permisos'])->group(function () {
         Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
         Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
     });
+
+    Route::controller(TipoMembresiaController::class)->prefix('membresias')->group(function () {
+        Route::get('inicio', 'index')->name('membresias.index');
+        Route::post('create', 'create')->name('membresias.create');
+        Route::put('update/{id}', 'update')->name('membresias.update');
+        require __DIR__ . '/ajax/membresias.php';
+    });
+
 });
+
