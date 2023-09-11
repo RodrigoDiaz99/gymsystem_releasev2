@@ -9,19 +9,7 @@ $(function () {
     obtenerRoles();
     jQueryValidator();
 
-    permisosTree = $('#permisosTree').tree({
-        primaryKey: 'id',
-        uiLibrary: 'materialdesign',
-        dataSource: {
-            url: urlObtenerPermisosUsuario,
-            type: 'post',
-            data: {
-                user_id: ''
-            },
-            processData: true
-        },
-        checkboxes: true
-    });
+
 });
 
 
@@ -184,10 +172,38 @@ function obtenerRoles() {
     });
 }
 
-function getPermisosUsuario(id) {
+function getPermisosUsuario(id, nombre) {
+    $.ajax({
+        url: urlObtenerPermisosUsuario,
+        type: 'post',
+        data: {
+            user_id: id
+        },
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Obteniendo información',
+                text: 'Espere un momento...',
+                didOpen: () => {
+                    swal.showLoading();
+                },
+            });
+        },
+        success: function (data) {
+            swal.close()
+            $('#permisosTree').tree({
+                primaryKey: 'id',
+                uiLibrary: 'materialdesign',
+                dataSource: data,
+                checkboxes: true
+            });
+            $("#nombreUsuario").text(nombre)
+            $("#permisosModal").modal("show");
+        },
+        error: function (error) {
+            console.error("Error loading data:", error);
+        }
+    });
 
-    permisosTree.reload({ user_id: id });
-    $("#permisosModal").modal("show");
 
 
 }
@@ -196,10 +212,10 @@ function getPermisosUsuario(id) {
 //#region formatters
 function accionesFormatter(value, row) {
     let html = '';
-
+    let nombre = row.nombre + ' ' + row.apellido_paterno + ' ' + row.apellido_materno;
     let htmlHeader = '<div>';
-    html += '<button type="button" class="btn btn-primary m-auto" onclick="getUserData(' + row.id + ')"><i class="fas fa-edit"></i></button>';
-    html += '<button type="button" class="btn btn-primary m-auto" onclick="getPermisosUsuario(' + row.id + ')"><i class="fas fa-edit"></i></button>';
+    html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getUserData(' + row.id + ')"><i class="fas fa-edit"></i></button>';
+    html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getPermisosUsuario(' + row.id + ',\'' + nombre + '\')"><i class="fas fa-key"></i></button>';
     let htmlFooter = '</div>';
     return htmlHeader + html + htmlFooter;
 }

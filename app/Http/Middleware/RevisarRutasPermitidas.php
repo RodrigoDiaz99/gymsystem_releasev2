@@ -19,17 +19,18 @@ class RevisarRutasPermitidas
     public function handle(Request $request, Closure $next)
     {
         $authUser = Auth::user();
-        $user = User::with('permisos.modulos')->find($authUser->id);
+        $user = User::with('permisos.modulos', 'role')->find($authUser->id);
+        if ($user->role->id == 1) {
+            return $next($request);
+        } else {
+            $rutasPermitidas = $user->permisos->pluck('modulos.urlBase')->toArray();
 
-        $rutasPermitidas = $user->permisos->pluck('modulos.urlBase')->toArray();
-
-        $rutaActual = '/' . explode('/', $request->getRequestUri())[1];
-        // Verifica si la URI actual está en la lista de rutas permitidas
-        if (!in_array($rutaActual, $rutasPermitidas)) {
-            // Si la URI no está permitida, redirige al usuario a la página 403
-            return abort(403);
+            $rutaActual = '/' . explode('/', $request->getRequestUri())[1];
+            // Verifica si la URI actual está en la lista de rutas permitidas
+            if (!in_array($rutaActual, $rutasPermitidas)) {
+                // Si la URI no está permitida, redirige al usuario a la página 403
+                return abort(403);
+            }
         }
-
-        return $next($request);
     }
 }

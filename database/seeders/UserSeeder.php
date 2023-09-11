@@ -23,6 +23,18 @@ class UserSeeder extends Seeder
             'apellido_materno'=>'Serviran',
             'email' => 'diaz-rodrigo@hotmail.com',
             'telefono' => '9992389045',
+            'roles_id' => '1',
+            'password' => Hash::make('123456'),
+        ]);
+
+
+        User::create([
+            'nombre' => 'Kenn Enrique',
+            'apellido_paterno'=>'Ayala',
+            'apellido_materno'=>'Valladares',
+            'email' => 'kennayala@outlook.com',
+            'telefono' => '9992259650',
+            'roles_id' => '2',
             'password' => Hash::make('123456'),
         ]);
 

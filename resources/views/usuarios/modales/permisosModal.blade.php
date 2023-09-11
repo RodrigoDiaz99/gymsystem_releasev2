@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="tituloModal" class="modal-title">Usuario</h5>
+                <h5 id="tituloModal" class="modal-title">Permisos de <span id="nombreUsuario">[usuario]</span></h5>
                 <button type="button" class="btn-close" data-bs-dismisss="modal" aria-label="Close"></button>
             </div>
             <input id="user_id" type="hidden" name="user_id" value="">
