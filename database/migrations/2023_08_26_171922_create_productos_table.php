@@ -21,7 +21,7 @@ class CreateProductosTable extends Migration
 
             $table->integer('cantidad_producto');
             $table->integer('alerta_minima')->nullable();
-            $table->integer('alert_maxima')->nullable();
+            $table->integer('alerta_maxima')->nullable();
 
             $table->double('precio_venta');
             $table->foreignId('users_id')->constrained('users');

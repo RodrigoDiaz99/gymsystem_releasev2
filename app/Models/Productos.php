@@ -26,11 +26,11 @@ class Productos extends Model
     ];
     public function proveedor()
     {
-        return $this->belongsTo(Proveedor::class, 'proveedores_id');
+        return $this->belongsTo(Proveedores::class, 'proveedores_id');
     }
     public function categoria()
     {
-        return $this->belongsTo(CategoriaProducto::class, 'categoria_productos_id');
+        return $this->belongsTo(CategoriaProductos::class, 'categoria_productos_id');
     }
     public function usuario()
     {
