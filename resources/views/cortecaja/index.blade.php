@@ -4,10 +4,7 @@
     <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
 
-            <button type="button" class="btn btn-icon btn-success" data-bs-toggle="modal" data-bs-target="#modalCreate">
-                <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
-                <span class="btn-inner--text">Cortes de Caja</span>
-            </button>
+
         </div>
 
     </div>
@@ -19,7 +16,7 @@
                         <h6 class="mb-0">Corte de Caja</h6>
                     </div>
                     <div class="card-body p-3">
-                        <table class="table align-items-center" id="gridMembresias">
+                        <table class="table align-items-center" id="gridCorteCaja">
 
                         </table>
                     </div>
@@ -30,9 +27,9 @@
 
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/modulos/membresias/membresias.js') }}"></script>
+    <script src="{{ asset('js/modulos/cortecaja/cortecaja.js') }}"></script>
     <script>
-        let getMembresias = "{{route('membresias.getMembresias')}}";
+        let getCorteCaja = "{{route('corte.getCorteCaja')}}";
 
     </script>
 @endsection

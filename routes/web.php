@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
+use App\Http\Controllers\CorteCajaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
@@ -87,3 +88,8 @@ Route::middleware(['auth', 'permisos'])->group(function () {
 
 });
 
+Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
+    Route::get('inicio', 'index')->name('corte.index');
+
+    require __DIR__ . '/ajax/cortecaja.php';
+});

@@ -4,8 +4,8 @@ $(function () {
             "X-CSRF-Token": $("meta[name=csrf-token]").attr("content"),
         },
     });
-    $("#gridMembresias").bootstrapTable({
-        url: getMembresias,
+    $("#gridCorteCaja").bootstrapTable({
+        url: getCorteCaja,
         classes: "table-striped",
         method: "post",
         locale: "es-MX",
@@ -22,26 +22,40 @@ $(function () {
             { field: "nombre_membresia", title: "Nombre", visible: true },
 
             {
-                field: "precio",
-                title: "Costo",
-
+                field: "fecha_inicio",
+                title: "Fecha Inicio",
                 visible: true,
             },
             {
-                field: "dias_membresia",
-                title: "Dias Duracion",
+                field: "fecha_final",
+                title: "Fecha Final",
             },
             {
-                field: "descripcion_membresia",
-                title: "Descripcion",
+                field: "cantidad_inicial",
+                title: "Cantidad Apertura",
+
+            },
+            {
+                field: "cantidad_final",
+                title: "Cantidad Apertura",
+
+            },
+            {
+                field: "total_venta",
+                title: "Cantidad Apertura",
+
+            },
+            {
+                field: "diferencia",
+                title: "Cantidad Apertura",
+
+            },
+            {
+                field: "diferencia",
+                title: "Cantidad Apertura",
 
             },
 
-            {
-                field: "accionesFormatter",
-                title: "Acciones",
-                formatter: "accionesFormatter",
-            },
         ],
         onLoadSuccess: (data) => {},
     });
