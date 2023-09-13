@@ -26,9 +26,8 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Informacion</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('corte.index')}}">
+                <a class="nav-link" href="{{ route('corte.index') }}">
                     <div
-
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-money-bill-wave text-warning text-sm opacity-10"></i>
                     </div>
@@ -44,20 +43,44 @@
                     <span class="nav-link-text ms-1">Estadisticas</span>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link " href="../pages/sign-up.html">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <a data-bs-toggle="collapse" href="#collapserBitacoras" class="nav-link "
+                    aria-controls="ecommerceExamples" role="button" aria-expanded="false">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="fas fa-file-contract text-info text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Bitacoras</span>
                 </a>
+                <div class="collapse " id="collapserBitacoras">
+                    <ul class="nav ms-4">
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                {{-- <span class="sidenav-mini-icon"> BA</span> --}}
+                                <span class="sidenav-normal"> Bitacora de accesos </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link " href="../../pages/ecommerce/referral.html">
+                                {{-- <span class="sidenav-mini-icon"> BC </span> --}}
+                                <span class="sidenav-normal">Bitacora de cancelacion</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">
+                                {{-- <span class="sidenav-mini-icon"> BV </span> --}}
+                                <span class="sidenav-normal">Bitacora Ventas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Productos</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('membresias.index')}}">
+                <a class="nav-link " href="{{ route('membresias.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-box-open text-info text-sm opacity-10"></i>
@@ -66,7 +89,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('productos.index')}}">
+                <a class="nav-link " href="{{ route('productos.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fab fa-product-hunt text-danger text-sm opacity-10"></i>
@@ -75,7 +98,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('categorias.index')}}">
+                <a class="nav-link " href="{{ route('categorias.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-list-alt text-danger text-sm opacity-10"></i>
@@ -88,7 +111,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Usuarios</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('usuarios.index')}}">
+                <a class="nav-link " href="{{ route('usuarios.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -97,7 +120,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('proveedores.index')}}">
+                <a class="nav-link " href="{{ route('proveedores.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CorteCaja extends Model
 {
     use HasFactory;
+    protected $table = "corte_cajas";
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
 }
