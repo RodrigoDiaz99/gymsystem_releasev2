@@ -3,11 +3,13 @@
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
+use App\Http\Controllers\CorteCajaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\TipoMembresiaController;
 use App\Http\Controllers\UsuariosController;
 use App\Models\Permisos;
 use App\Models\Roles;
@@ -67,8 +69,8 @@ Route::middleware(['auth', 'permisos'])->group(function () {
 
     Route::controller(UsuariosController::class)->prefix('usuarios')->group(function () {
         Route::get('inicio', 'index')->name('usuarios.index');
-            require __DIR__ . '/ajax/roles.php';
-            require __DIR__ . '/ajax/usuarios.php';
+        require __DIR__ . '/ajax/roles.php';
+        require __DIR__ . '/ajax/usuarios.php';
     });
 
 
@@ -80,4 +82,16 @@ Route::middleware(['auth', 'permisos'])->group(function () {
         Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
     });
 
+    Route::controller(TipoMembresiaController::class)->prefix('membresias')->group(function () {
+        Route::get('inicio', 'index')->name('membresias.index');
+        Route::post('create', 'create')->name('membresias.create');
+        Route::put('update/{id}', 'update')->name('membresias.update');
+        require __DIR__ . '/ajax/membresias.php';
+    });
+
+
+    Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
+        Route::get('inicio', 'index')->name('corte.index');
+        require __DIR__ . '/ajax/cortecaja.php';
+    });
 });

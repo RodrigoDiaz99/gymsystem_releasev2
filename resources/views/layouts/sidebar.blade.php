@@ -14,7 +14,7 @@
             @foreach ($menuData as $menuItem)
                 @if ($menuItem['esMenu'] == 0)
                     <li class="nav-item">
-                        <a class="nav-link " href="..{{$menuItem['url']}}">
+                        <a class="nav-link " href="..{{ $menuItem['url'] }}">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="{{ $menuItem['icono'] }}  text-warning text-sm opacity-10"></i>
                             </div>
@@ -27,7 +27,7 @@
                     </li>
                     @foreach ($menuItem['submodulo'] as $submodulo)
                         <li class="nav-item">
-                            <a class="nav-link " href="..{{$submodulo['url']}}">
+                            <a class="nav-link " href="..{{ $submodulo['url'] }}">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="{{ $submodulo['icono'] }} text-warning text-sm opacity-10"></i>
                                 </div>

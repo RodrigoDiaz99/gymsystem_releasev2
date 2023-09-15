@@ -69,4 +69,9 @@ class User extends Authenticatable
 
         return $user;
     }
+
+    public function corteCajas()
+    {
+        return $this->hasMany(CorteCaja::class, 'users_id');
+    }
 }
