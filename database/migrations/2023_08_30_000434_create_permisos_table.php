@@ -19,7 +19,7 @@ class CreatePermisosTable extends Migration
             $table->foreignId("id_submodulo")->nullable()->references('id')->on('submodulos');
             $table->string("nombre");
             $table->string("clave");
-            $table->string("descripcion");
+            $table->string("descripcion")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -23,6 +23,9 @@
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-primary ">Ícono</label>
@@ -31,7 +34,14 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-primary ">Tema</label>
+                                <div class="input-group input-group-alternative">
+                                    <input id="tema" class="form-control " type="text" name="tema" value="" placeholder="text-primary">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row moduloOptions" style="display:none;">
                         <div class="col-md-6">
@@ -94,7 +104,7 @@
                         <h6>Información del permiso</h6>
                         <hr>
 
-                        <div class="row " >
+                        <div class="row ">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-primary ">Nombre<span class="text-danger">*</span></label>

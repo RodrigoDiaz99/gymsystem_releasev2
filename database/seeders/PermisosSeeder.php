@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permisos;
 use Illuminate\Database\Seeder;
 
 class PermisosSeeder extends Seeder
@@ -13,6 +14,39 @@ class PermisosSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '1',
+            'nombre' => 'Permiso de acceso al módulo de membresías',
+            'clave' => 'MOD_MEMBRESIAS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '2',
+            'nombre' => 'Permiso de acceso al módulo de Productos',
+            'clave' => 'MOD_PRODUCTO',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '3',
+            'nombre' => 'Permiso de acceso al módulo de categorías',
+            'clave' => 'MOD_CATEGORIAS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '4',
+            'nombre' => 'Permiso de acceso al módulo de usuarios',
+            'clave' => 'MOD_USUARIOS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '5',
+            'nombre' => 'Permiso de acceso al módulo de proveedores',
+            'clave' => 'MOD_PROVEEDORES',
+        ]);
     }
 }

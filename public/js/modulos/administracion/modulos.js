@@ -18,14 +18,18 @@ function crearBootstrapTables() {
         locale: "es-MX",
         contentType: "application/x-www-form-urlencoded",
         theadClasses: "text-primary",
-        pagination: true,
-        striped: true,
+        detailView: true,
         pagination: true,
         formatLoadingMessage: function () {
             return '<h4><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Cargando  </h4>';
         },
         search: true,
         pageSize: 10,
+        striped: true,
+        icons: {
+            detailOpen: "bi-plus",
+            detailClose: "bi-dash",
+        },
         columns: [
             {
                 field: "id",
@@ -49,18 +53,60 @@ function crearBootstrapTables() {
             },
 
 
-            {
-                field: "cedicion",
-                title: "Acciones",
-                formatter: "accionesFormatter",
-            },
+            // {
+            //     field: "cedicion",
+            //     title: "Acciones",
+            //     formatter: "accionesFormatter",
+            // },
         ],
+        onExpandRow: function (index, row, $detail) {
+            let tableHTML = "<table class='table table-flush' cellspacing='0'></table>";
+            expandTable(row, $detail.html(tableHTML).find("table"));
+        },
 
     });
 }
 //#endregion
 
 //#region onEvent
+
+function expandTable(row, subgrid) {
+    subgrid.bootstrapTable({
+        url: urlGetSubmodulos,
+        method: "post",
+        contentType: "application/x-www-form-urlencoded",
+        queryParams: function (p) {
+            return {
+                id_modulo: row.id,
+            };
+        },
+        pagination: true,
+        pageSize: 10,
+        columns: [
+            {
+                field: "id",
+                title: "ID",
+                width: "10%",
+            },
+            {
+                field: "nombre",
+                title: "Nombre",
+                width: "10%",
+            },
+            {
+                field: "url",
+                title: "URL",
+                width: "10%",
+            },
+        ],
+        onLoadSuccess: function (data) {
+            subgrid.bootstrapTable("hideLoading");
+        },
+
+    });
+}
+
+
 $("#btnAgregarModulo").on('click', function () {
 
     $("#moduloModal").modal('show');
@@ -113,6 +159,7 @@ function guardarModulo() {
         modulo_nombre: $("#nombre").val(),
         modulo_url: $("#url").val(),
         modulo_icono: $("#icon").val(),
+        modulo_tema: $("#tema").val(),
         modulo_descripcion: $("#descripcion").val(),
         tipoModulo: $("input[name='tipoModulo']:checked").val(),
         modulo_modulo_padre: $("#id_moduloPadre").val(),
@@ -146,6 +193,7 @@ function guardarModulo() {
                     text: data.cMensaje,
 
                 })
+                getMenus();
                 $("#gridModulos").bootstrapTable("refresh");
             } else {
                 Swal.close();

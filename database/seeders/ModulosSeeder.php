@@ -14,13 +14,38 @@ class ModulosSeeder extends Seeder
      */
     public function run()
     {
+        // Para crear uno sin menú
         Modulos::create([
-            'nombre' => 'Rodrigo Enrique',
-            'apellido_paterno'=>'Diaz',
-            'apellido_materno'=>'Serviran',
-            'email' => 'diaz-rodrigo@hotmail.com',
-            'telefono' => '9992389045',
-            'roles_id' => '1',
-            'password' => Hash::make('123456'),
-        ]);    }
+            'nombre' => 'Inicio',
+            'descripcion' => 'Inicio del sistema',
+            'icono' => 'fas fa-home',
+            'esMenu' => 0,
+            'url' => '/inicio'
+        ]);
+
+        // Crear menús
+        Modulos::create([
+            'nombre' => 'Información',
+            'descripcion' => 'Sección de información',
+            'icono' => null,
+            'esMenu' => 1,
+            'url' => '/'
+        ]);
+
+        Modulos::create([
+            'nombre' => 'Productos',
+            'descripcion' => 'Sección de productos',
+            'icono' => null,
+            'esMenu' => 1,
+            'url' => '/'
+        ]);
+
+        Modulos::create([
+            'nombre' => 'Usuarios',
+            'descripcion' => 'Sección de Usuarios',
+            'icono' => null,
+            'esMenu' => 1,
+            'url' => '/'
+        ]);
+    }
 }

@@ -77,6 +77,7 @@ Route::middleware(['auth', 'permisos'])->group(function () {
     Route::controller(AdministracionController::class)->prefix('administracion')->group(function () {
         Route::get('modulos', 'modulos')->name('administracion.modulos');
         Route::get('getModulos', 'getModulos')->name('administracion.getModulos');
+        Route::post('getSubmodulos', 'getSubmodulos')->name('administracion.getSubmodulos');
         Route::get('getMenus', 'getMenus')->name('administracion.getMenus');
         Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
         Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');

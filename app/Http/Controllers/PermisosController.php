@@ -23,6 +23,7 @@ class PermisosController extends Controller
                             'esMenu' => $modulo->esMenu,
                             'url' => $modulo->url,
                             'icono' => $modulo->icono,
+                            'tema' => $modulo->tema,
                             'nombre' => $modulo->nombre
                         ];
                     } else {
@@ -30,7 +31,8 @@ class PermisosController extends Controller
                         foreach ($modulo->submodulos as $submodulo) {
                             $submodulos[] =    [
                                 'url' => $submodulo->url,
-                                'icono' => $submodulo->icono,
+                            'tema' => $submodulo->tema,
+                            'icono' => $submodulo->icono,
                                 'nombre' => $submodulo->nombre,
                             ];
                         };

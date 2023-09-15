@@ -30,6 +30,7 @@
     <script src="{{ asset('js/modulos/administracion/modulos.js') }}"></script>
     <script>
         let urlGetModulos = "{{ route('administracion.getModulos') }}"
+        let urlGetSubmodulos = "{{ route('administracion.getSubmodulos') }}"
         let urlGetMenus = "{{ route('administracion.getMenus') }}"
         let urlGuardarModulo = "{{ route('administracion.guardarModulo') }}"
         let urlObtenerModulo = "{{ route('administracion.obtenerModulo') }}"

@@ -21,6 +21,11 @@ class AdministracionController extends Controller
         return Modulos::all();
     }
 
+    public function getSubmodulos(Request $request)
+    {
+        return Modulos::find($request->id_modulo)->submodulos;
+    }
+
     public function getMenus()
     {
         return Modulos::where('esMenu', 1)->get();
@@ -47,6 +52,7 @@ class AdministracionController extends Controller
                     $modulo->descripcion = $request->modulo_descripcion;
                     $modulo->icono = $request->modulo_icono;
                     $modulo->esMenu = "0";
+                    $modulo->tema = $request->modulo_tema;
                     $modulo->save();
                     $permiso = new Permisos();
                     $permiso->id_modulo = $modulo->id;
@@ -62,6 +68,7 @@ class AdministracionController extends Controller
                     $submodulo->url = $request->modulo_url;
                     $submodulo->descripcion = $request->modulo_descripcion;
                     $submodulo->icono = $request->modulo_icono;
+                    $submodulo->tema = $request->modulo_tema;
                     $submodulo->save();
                     $permiso = new Permisos();
                     $permiso->id_submodulo = $submodulo->id;

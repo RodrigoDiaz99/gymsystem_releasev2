@@ -20,6 +20,7 @@ class CreateSubmodulosTable extends Migration
             $table->string("url")->nullable();
             $table->string("descripcion")->nullable();
             $table->string("icono")->nullable();
+            $table->string("tema")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,6 +18,7 @@ class CreateModulosTable extends Migration
             $table->string("nombre");
             $table->string("descripcion")->nullable();
             $table->string("icono")->nullable();
+            $table->string("tema")->nullable();
             $table->boolean("esMenu");
             $table->string("url")->nullable();
             $table->timestamps();
