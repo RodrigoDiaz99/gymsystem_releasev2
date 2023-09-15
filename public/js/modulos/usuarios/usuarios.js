@@ -1,4 +1,4 @@
-var permisosTree
+var tree
 $(function () {
     $.ajaxSetup({
         headers: {
@@ -8,8 +8,11 @@ $(function () {
     crearBootstrapTables();
     obtenerRoles();
     jQueryValidator();
-
-
+    tree = $('#permisosTree').tree({
+        primaryKey: 'id',
+        uiLibrary: 'materialdesign',
+        checkboxes: true
+    });
 });
 
 
@@ -74,6 +77,8 @@ $("#btnAgregarUsuarios").on('click', function () {
     $("#user_id").val('')
     $("#usuarioModal").modal('show');
 })
+
+
 //#endregion
 
 //#region funciones
@@ -93,6 +98,14 @@ function saveUser() {
         ocupacion: $("#ocupacion").val()
     };
 
+}
+
+function errorPermisos() {
+    Swal.fire({
+        icon: 'error',
+        title: "Error",
+        text: "Por defecto, los administradores tienen todos los permisos, por lo cual no se puede modificar.",
+    })
 }
 
 function getUserData(user_id) {
@@ -172,9 +185,10 @@ function obtenerRoles() {
     });
 }
 
+
 function getPermisosUsuario(id, nombre) {
     $.ajax({
-        url: urlObtenerPermisosUsuario,
+        url: urlGetPermisos,
         type: 'post',
         data: {
             user_id: id
@@ -190,12 +204,7 @@ function getPermisosUsuario(id, nombre) {
         },
         success: function (data) {
             swal.close()
-            $('#permisosTree').tree({
-                primaryKey: 'id',
-                uiLibrary: 'materialdesign',
-                dataSource: data,
-                checkboxes: true
-            });
+            tree.render(data)
             $("#nombreUsuario").text(nombre)
             $("#permisosModal").modal("show");
         },
@@ -215,7 +224,10 @@ function accionesFormatter(value, row) {
     let nombre = row.nombre + ' ' + row.apellido_paterno + ' ' + row.apellido_materno;
     let htmlHeader = '<div>';
     html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getUserData(' + row.id + ')"><i class="fas fa-edit"></i></button>';
-    html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getPermisosUsuario(' + row.id + ',\'' + nombre + '\')"><i class="fas fa-key"></i></button>';
+
+    if (row.role.nombre != "Administrador") {
+        html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getPermisosUsuario(' + row.id + ',\'' + nombre + '\')"><i class="fas fa-key"></i></button>';
+    }
     let htmlFooter = '</div>';
     return htmlHeader + html + htmlFooter;
 }

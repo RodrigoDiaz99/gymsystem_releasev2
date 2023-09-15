@@ -4,6 +4,7 @@ $(function () {
             "X-CSRF-Token": $("meta[name=csrf-token]").attr("content"),
         },
     });
+    getMenus()
     crearBootstrapTables();
     jQueryValidator();
 });
@@ -54,17 +55,7 @@ function crearBootstrapTables() {
                 formatter: "accionesFormatter",
             },
         ],
-        onLoadSuccess: (data) => {
-            let roleSelect = $("#id_moduloPadre");
 
-            $("#id_moduloPadre").empty().attr('disabled', false);
-
-            roleSelect.append($("<option></option>").attr("value", "").text("Seleccione un módulo"));
-
-            $.each(data, function (key, value) {
-                roleSelect.append($("<option></option>").attr("value", value.id).text(value.nombre));
-            });
-        },
     });
 }
 //#endregion
@@ -75,25 +66,55 @@ $("#btnAgregarModulo").on('click', function () {
     $("#moduloModal").modal('show');
 })
 
-$("#esPadreCheck").on('change', function () {
-    if ($(this).prop('checked')) {
-        $("#moduloPadreSections").hide()
-    } else {
-        $("#moduloPadreSections").show()
+
+
+$('input[name="tipoModulo"]').on('click', function () {
+    switch ($(this).val()) {
+        case 'esMenu':
+            $(".moduloOptions").hide();
+            $(".submoduloOptions").hide();
+            break;
+        case 'esSubmodulo':
+            $(".moduloOptions").show();
+            $(".submoduloOptions").show();
+            break;
+        case 'esPadre':
+            $(".moduloOptions").show();
+            $(".submoduloOptions").hide();
+            break;
     }
 })
 //#endregion
 
 //#region funciones
 
+function getMenus() {
+    $.ajax({
+        url: urlGetMenus,
+        type: "GET",
+        success: function (data) {
+            let roleSelect = $("#id_moduloPadre");
+
+            $("#id_moduloPadre").empty().attr('disabled', false);
+
+            roleSelect.append($("<option></option>").attr("value", "").text("Seleccione un módulo"));
+
+            $.each(data, function (key, value) {
+                roleSelect.append($("<option></option>").attr("value", value.id).text(value.nombre));
+            });
+        },
+
+    });
+
+}
+
 function guardarModulo() {
     let data = {
         modulo_nombre: $("#nombre").val(),
         modulo_url: $("#url").val(),
-        modulo_urlBase: $("#urlBase").val(),
         modulo_icono: $("#icon").val(),
         modulo_descripcion: $("#descripcion").val(),
-        modulo_esPadre: $("#esPadreCheck").prop('checked'),
+        tipoModulo: $("input[name='tipoModulo']:checked").val(),
         modulo_modulo_padre: $("#id_moduloPadre").val(),
         permiso_nombre: $("#permiso_nombre").val(),
         permiso_clave: $("#clave").val(),
@@ -227,27 +248,33 @@ function jQueryValidator() {
                 required: true
             },
             url: {
-                required: true
+                required: function () {
+                    return $("#esPadre").prop('checked') || $("#esSubmodulo").prop('checked');
+                }
             },
-            urlBase: {
-                required: true
-            },
+
             descripcion: {
                 required: true
             },
             id_moduloPadre: {
                 required: function () {
-                    return $("#esPadreCheck").prop('checked',false);
+                    return $("#esSubmodulo").prop('checked');
                 }
             },
             permiso_nombre: {
-                required: true
+                required: function () {
+                    return $("#esPadre").prop('checked') || $("#esSubmodulo").prop('checked');
+                }
             },
             clave: {
-                required: true
+                required: function () {
+                    return $("#esPadre").prop('checked') || $("#esSubmodulo").prop('checked');
+                }
             },
             permiso_descripcion: {
-                required: true
+                required: function () {
+                    return $("#esPadre").prop('checked') || $("#esSubmodulo").prop('checked');
+                }
             },
         },
         highlight: function (label, element) {

@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Permisos::class, 'users_has_permisos')->withPivot('id', 'deleted_at');
     }
 
+    public function tienePermiso($permisoId)
+    {
+        return $this->permisos->contains('id', $permisoId);
+    }
+
     public static function getPermisosCurrentUser()
     {
         $authUser = Auth::user();

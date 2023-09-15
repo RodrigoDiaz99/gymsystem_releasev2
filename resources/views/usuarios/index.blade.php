@@ -14,7 +14,7 @@
         let urlGetUsers = "{{ route('usuarios.getUsers') }}"
         let urlSaveUser = "{{ route('usuario.saveUser') }}"
         let urlGetUserData = "{{ route('usuario.getUserData') }}"
-        let urlObtenerPermisosUsuario = "{{ route('usuario.getPermisosUsuario') }}"
+        let urlGetPermisos = "{{ route('usuario.getPermisos') }}"
     </script>
 @endsection
 @section('css')

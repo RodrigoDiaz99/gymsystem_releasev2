@@ -8,6 +8,7 @@ use App\Models\Roles;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Ui\Presets\React;
@@ -22,6 +23,11 @@ class UsuariosController extends Controller
     public function getUsers()
     {
         return User::with('role')->get();
+    }
+
+    public function getRoles()
+    {
+        return Roles::all();
     }
 
     public function saveUser(Request $request)
@@ -87,53 +93,74 @@ class UsuariosController extends Controller
         }
     }
 
-    public function getPermisosUsuario(Request $request)
+    public function getPermisos(Request $request)
     {
         try {
-            if ($request->user_id != '' || $request->user_id != null) {
+            // Obtener los módulos
+            $lstModulos = Modulos::where('deleted_at', null)->get();
+            // Obtener datos del usuario
+            $user = User::find($request->user_id);
+            $lstMenu = [];
+            foreach ($lstModulos as $modulo) {
+                if ($modulo->esMenu == 0) {
+                    $modulo = [
+                        'id' => $modulo->id,
+                        'text' => "Módulo: " . $modulo->nombre,
+                        'checked' => $user->tienePermiso($modulo->permisos->id),
+                        'children' => null,
+                    ];
+                } else {
+                    $modulo = [
+                        'id' => $modulo->id,
+                        'text' => "Menú: " . $modulo->nombre,
+                        'checked' => false,
+                        'children' => $this->getChildren($modulo, $user),
+                    ];
+                }
 
-                $user = User::with('permisos.modulos')->find($request->user_id); //
-                $permisosUsuario = $user->permisos;
+                $lstMenu[] = $modulo;
             }
-            $lstPermisos = [];
-            foreach ($permisosUsuario as $permiso) {
-                $permiso = [
-                    'id' => $permiso->pivot->id,
-                    'text' => $permiso->modulos->descripcion,
-                    'permiso_id' => $permiso->pivot->permisos_id,
-                    'user_id' => $permiso->pivot->user_id,
-                    'checked' => is_null($permiso->pivot->deleted_at) ? true : false,
-                    'children' => $this->getSubmodulos($permiso->modulos->id)
-
-                ];
-                $lstPermisos[] = $permiso;
-            }
-            return $lstPermisos;
+            return $lstMenu;
         } catch (Exception $ex) {
             return response()->json([
                 'lSuccess' => false,
                 'cMensaje' => $ex->getMessage(),
-                'cTrace' => $ex->getTrace()
             ]);
         }
     }
 
-    public function getSubmodulos($modulo_padre)
+    private function getChildren($modulo, $user)
     {
-        $submodulos = Modulos::where('deleted_at', null)
-            ->where('esPadre', 0)
-            ->where('modulo_padre', $modulo_padre)->get();
-        $lstSubmodulos = [];
-        foreach ($submodulos as $submodulo) {
-            $permiso = [
-                'id' => $submodulo->id,
-                'text' => $submodulo->descripcion,
-                'permiso_id' => $submodulo->permisos_id,
-                'user_id' => $submodulo->user_id,
-                'checked' => is_null($submodulo->deleted_at) ? true : false,
+        /* Si el módulo no tiene submódulo */
+        if ($modulo->submodulos != null) {
+
+            $lstModulos = array();
+            foreach ($modulo->submodulos as $submodulo) {
+                $mod = [
+                    'id' =>  $submodulo->id,
+                    'text' =>  "Módulo: " . $submodulo->nombre,
+                    'checked' => false,
+                    'children' => $this->getChildren($submodulo, $user),
+                ];
+
+                $lstModulos[] = $mod;
+            }
+
+            return $lstModulos;
+        } else  if ($modulo->permisos != null) {
+            $lstPermisos = array();
+            $permiso = $modulo->permisos;
+            $per = [
+                'id' => $permiso->id,
+                'tipo' => 'permiso',
+                'text' => 'Permiso: ' . $permiso->nombre,
+                'checked' => $user->tienePermiso($permiso->id),
             ];
-            $lstSubmodulos[] = $permiso;
+            $lstPermisos[] = $per;
+
+            return $lstPermisos;
+        } else {
+            return null;
         }
-        return $lstSubmodulos;
     }
 }

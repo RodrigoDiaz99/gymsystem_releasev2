@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Modulos extends Model
+class Submodulos extends Model
 {
     use HasFactory;
 
     public function permisos()
     {
-        return $this->hasOne(Permisos::class, 'id_modulo');
+        return $this->hasOne(Permisos::class, 'id_submodulo');
     }
 
-    public function submodulos()
+    public function modulo()
     {
-        return $this->hasMany(Submodulos::class, 'id_modulo');
+        return $this->belongsTo(Modulos::class, 'id_modulo');
     }
 }

@@ -14,6 +14,9 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"><strong>Guardar</strong></button>
+            </div>
         </div>
 
     </div>
