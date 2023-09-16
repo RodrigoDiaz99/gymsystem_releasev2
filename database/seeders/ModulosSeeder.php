@@ -23,6 +23,8 @@ class ModulosSeeder extends Seeder
             'url' => '/inicio'
         ]);
 
+
+
         // Crear menús
         Modulos::create([
             'nombre' => 'Información',
@@ -47,5 +49,8 @@ class ModulosSeeder extends Seeder
             'esMenu' => 1,
             'url' => '/'
         ]);
+
+
+
     }
 }

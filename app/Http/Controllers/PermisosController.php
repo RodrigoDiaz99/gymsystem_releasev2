@@ -28,7 +28,11 @@ class PermisosController extends Controller
                             'tema' => $modulo->tema,
                             'nombre' => $modulo->nombre
                         ];
-                    } else {
+                    }
+                }
+
+                foreach ($modulos as $modulo) {
+                    if ($modulo->esMenu == 1) {
                         // Si es menú, entonces debe tener submódulos
                         $submodulos = [];
                         // Armar lista de submódulos
@@ -57,7 +61,7 @@ class PermisosController extends Controller
                 foreach ($modulos as $modulo) {
                     // Si no es menú (es módulo independiente)
                     if ($modulo->esMenu == 0) {
-                        if ($user->permisos->where('id_modulo', $modulo->id)->first() != null) {
+                        if ($user->permisos->where('id_modulo', $modulo->id)->first() != null || $modulo->permisos == null) {
                             $rutasPermitidas[] = [
                                 'esMenu' => $modulo->esMenu,
                                 'url' => $modulo->url,
@@ -66,7 +70,11 @@ class PermisosController extends Controller
                                 'nombre' => $modulo->nombre
                             ];
                         }
-                    } else {
+                    }
+                }
+
+                foreach ($modulos as $modulo) {
+                    if ($modulo->esMenu == 1) {
                         // Si es menú, entonces debe tener submódulos
                         $submodulos = [];
                         // Armar lista de submódulos

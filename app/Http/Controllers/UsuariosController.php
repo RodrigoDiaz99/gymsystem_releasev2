@@ -109,15 +109,18 @@ class UsuariosController extends Controller
             $user = User::find($request->user_id);
             $lstMenu = [];
             foreach ($lstModulos as $modulo) {
-                if ($modulo->esMenu == 0 && $modulo->permiso) {
+                if ($modulo->esMenu == 0 && $modulo->permisos) {
                     $modulo = [
-                        'id' =>  0,
+                        'id' =>  $modulo->permisos->id,
                         'text' => "Módulo: " . $modulo->nombre,
                         'checked' => $user->tienePermiso($modulo->permisos->id),
                         'children' => null,
                     ];
                     $lstMenu[] = $modulo;
-                } else if (count($modulo->submodulos) > 0) {
+                }
+            }
+            foreach ($lstModulos as $modulo) {
+                if (count($modulo->submodulos) > 0) {
                     $modulo = [
                         'id' =>  0,
                         'text' => "Menú: " . $modulo->nombre,

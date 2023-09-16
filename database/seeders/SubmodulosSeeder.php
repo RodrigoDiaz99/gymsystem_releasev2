@@ -20,6 +20,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Cortes de caja',
             'descripcion' => 'Módulo de cortes de caja',
             'icono' => 'fas fa-cash-register',
+            'tema' => 'text-danger',
             'url' => '/cortescaja/inicio'
         ]);
         Submodulos::create([
@@ -27,6 +28,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Estadisticas',
             'descripcion' => 'Módulo de estadisticas',
             'icono' => 'fas fa-chart-bar',
+            'tema' => 'text-success',
             'url' => '/estadisticas/inicio'
         ]);
         Submodulos::create([
@@ -34,6 +36,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Bitácoras',
             'descripcion' => 'Módulo de bitácoras',
             'icono' => 'fas fa-file-alt',
+            'tema' => 'text-primary',
             'url' => '/bitacoras/inicio'
         ]);
 
@@ -42,6 +45,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Membresías',
             'descripcion' => 'Módulo de membresías',
             'icono' => 'fas fa-id-card',
+            'tema' => 'text-primary',
             'url' => '/membresias/inicio'
         ]);
 
@@ -50,6 +54,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Productos',
             'descripcion' => 'Módulo de Productos',
             'icono' => 'fas fa-shopping-bag',
+            'tema' => 'text-danger',
             'url' => '/productos/inicio'
         ]);
 
@@ -58,6 +63,7 @@ class SubmodulosSeeder extends Seeder
             'nombre' => 'Categorías',
             'descripcion' => 'Módulo de Categorías',
             'icono' => 'fas fa-folder-open',
+            'tema' => 'text-danger',
             'url' => '/categorias/inicio'
         ]);
 
@@ -75,6 +81,15 @@ class SubmodulosSeeder extends Seeder
             'descripcion' => 'Módulo de proveedores',
             'icono' => 'fas fa-truck-moving',
             'url' => '/proveedores/inicio'
+        ]);
+
+        Submodulos::create([
+            'id_modulo' => '4',
+            'nombre' => 'Expedientes',
+            'descripcion' => 'Módulo de expedientes',
+            'icono' => 'fas fa-notes-medical',
+            'tema' => 'text-primary',
+            'url' => '/expedientes/inicio'
         ]);
     }
 }

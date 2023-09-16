@@ -14,6 +14,7 @@ class PermisosSeeder extends Seeder
      */
     public function run()
     {
+
         Permisos::create([
             'id_modulo' => null,
             'id_submodulo' => '1',
@@ -68,6 +69,13 @@ class PermisosSeeder extends Seeder
             'id_submodulo' => '8',
             'nombre' => 'Permiso de acceso al módulo de proveedores',
             'clave' => 'MOD_PROVEEDORES',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '9',
+            'nombre' => 'Permiso de acceso al módulo de expedientes',
+            'clave' => 'MOD_EXPEDIENTES',
         ]);
     }
 }
