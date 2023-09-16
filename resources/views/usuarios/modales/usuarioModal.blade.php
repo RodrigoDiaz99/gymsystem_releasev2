@@ -7,6 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismisss="modal" aria-label="Close"></button>
             </div>
             <input id="user_id" type="hidden" name="user_id" value="">
+            <input id="modoUsuario" type="hidden" name="modoUsuario" value="crear">
             <form id="usuarioForm">
                 <div class="modal-body">
                     @csrf
@@ -16,7 +17,8 @@
                             <div class="form-group">
                                 <label class="text-primary ">Nombre de usuario <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="usuario" class="form-control " type="text" name="usuario" value="" placeholder="Nombre de usuario">
+                                    <input id="usuario" class="form-control " readonly type="text" name="usuario" value=""
+                                        placeholder="Nombre de usuario">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +107,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Ocupación </label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="ocupacion" class="form-control " type="text" name="email" value="" placeholder="ocupacion">
+                                    <input id="ocupacion" class="form-control " type="text" name="ocupacion" value="" placeholder="ocupacion">
                                 </div>
                             </div>
                         </div>

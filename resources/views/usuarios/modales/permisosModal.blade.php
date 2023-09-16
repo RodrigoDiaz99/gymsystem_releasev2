@@ -6,7 +6,7 @@
                 <h5 id="tituloModal" class="modal-title">Permisos de <span id="nombreUsuario">[usuario]</span></h5>
                 <button type="button" class="btn-close" data-bs-dismisss="modal" aria-label="Close"></button>
             </div>
-            <input id="user_id" type="hidden" name="user_id" value="">
+            <input id="users_id_permisos" type="hidden" name="users_id_permisos" value="">
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
@@ -15,7 +15,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success"><strong>Guardar</strong></button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button id="btnGuardarPermisos" type="button" class="btn btn-success"><strong>Guardar</strong></button>
             </div>
         </div>
 

@@ -1,5 +1,4 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
-    data-scroll="false">
+<nav id="navbarBlur" class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -8,12 +7,12 @@
             </ol>
             <h6 class="font-weight-bolder text-white mb-0">@yield('title')</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div id="navbar" class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                 <ul class="navbar-nav  justify-content-end">
 
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                        <a id="iconNavbarSidenav" href="javascript:;" class="nav-link text-white p-0">
                             <div class="sidenav-toggler-inner">
                                 <i class="sidenav-toggler-line bg-white"></i>
                                 <i class="sidenav-toggler-line bg-white"></i>
@@ -27,12 +26,10 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell cursor-pointer"></i>
+                        <a id="dropdownMenuButton" href="javascript:;" class="nav-link text-white p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                          <b>  ¡Hola, {{ Auth::user()->usuario }}!</b> <i class="fas fa-chevron-down"></i>
                         </a>
-                        <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                            aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
 
 
                             <li class="nav-item dropdown">

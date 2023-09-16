@@ -35,14 +35,17 @@ class UsuariosController extends Controller
         try {
             DB::beginTransaction();
             $user = null;
-            $cMensaje = "";
+            $cMensaje = null;
+            $modo = null;
             if ($request->user_id == null) {
                 $user = new User();
                 $user->password = Hash::make('123456');
                 $cMensaje = "¡Se creó el usuario con éxito!";
+                $modo = "crear";
             } else {
                 $user = User::where('id', $request->user_id)->first();
                 $cMensaje = "¡Se actualizó el usuario con éxito!";
+                $modo = "editar";
             }
             $user->nombre = $request->nombre;
             $user->apellido_paterno = $request->apellido_paterno;
@@ -51,15 +54,19 @@ class UsuariosController extends Controller
             $user->email = $request->email;
             $user->telefono_contacto = $request->telefono_contacto;
             $user->fecha_nacimiento = $request->fecha_nacimiento;
-            $user->usuario = $request->usuario;
             $user->ocupacion = $request->ocupacion;
             $user->roles_id = $request->role_id;
-
             $user->save();
+            if ($modo == "crear") {
+                $usuario = explode('#', $request->usuario);
+                $user->usuario = $usuario[0] . $user->id;
+                $user->update();
+            }
+
             DB::commit();
             return response()->json([
                 'lSuccess' => true,
-                'cMensaje' => $cMensaje,
+                'cMensaje' => $cMensaje . "\nUsuario: " . $user->usuario,
             ]);
         } catch (Exception $ex) {
             return response()->json([
@@ -104,7 +111,7 @@ class UsuariosController extends Controller
             foreach ($lstModulos as $modulo) {
                 if ($modulo->esMenu == 0 && $modulo->permiso) {
                     $modulo = [
-                        'id' => $modulo->id,
+                        'id' =>  0,
                         'text' => "Módulo: " . $modulo->nombre,
                         'checked' => $user->tienePermiso($modulo->permisos->id),
                         'children' => null,
@@ -112,7 +119,7 @@ class UsuariosController extends Controller
                     $lstMenu[] = $modulo;
                 } else if (count($modulo->submodulos) > 0) {
                     $modulo = [
-                        'id' => $modulo->id,
+                        'id' =>  0,
                         'text' => "Menú: " . $modulo->nombre,
                         'checked' => false,
                         'children' => $this->getChildren($modulo, $user),
@@ -138,7 +145,7 @@ class UsuariosController extends Controller
             $lstModulos = array();
             foreach ($modulo->submodulos as $submodulo) {
                 $mod = [
-                    'id' =>  $submodulo->id,
+                    'id' =>  0,
                     'text' =>  "Módulo: " . $submodulo->nombre,
                     'checked' => false,
                     'children' => $this->getChildren($submodulo, $user),
@@ -162,6 +169,28 @@ class UsuariosController extends Controller
             return $lstPermisos;
         } else {
             return null;
+        }
+    }
+
+    public function guardarPermisosUsuario(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $user = User::where('id', $request->id_users)->first();
+            $user->permisos()->sync($request->id_permisos);
+            $user->update();
+            DB::commit();
+            return response()->json([
+                'lSuccess' => true,
+                'cMensaje' => '¡Se actualizó los permisos del usuario con éxito!',
+            ]);
+        } catch (Exception $ex) {
+            return response()->json([
+                'lSuccess' => false,
+                'cMensaje' => $ex->getMessage(),
+                'cTrace' => $ex->getTrace()
+            ]);
         }
     }
 }

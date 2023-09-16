@@ -6,7 +6,6 @@ $(function () {
         },
     });
     crearBootstrapTables();
-    obtenerRoles();
     jQueryValidator();
     tree = $('#permisosTree').tree({
         primaryKey: 'id',
@@ -38,6 +37,11 @@ function crearBootstrapTables() {
                 field: "id",
                 title: "ID de Usuario",
                 visible: false
+            },
+            {
+                field: "usuario",
+                title: "Usuario",
+                visible: true
             },
             {
                 field: "nombre",
@@ -73,15 +77,111 @@ function crearBootstrapTables() {
 
 //#region onEvent
 $("#btnAgregarUsuarios").on('click', function () {
+    obtenerRoles();
+
     $("#usuarioModal *").val('');
     $("#user_id").val('')
+    $("#modoUsuario").val("crear")
     $("#usuarioModal").modal('show');
+})
+
+$("#nombre, #apellido_paterno").on("focusout", function () {
+    if ($("#modoUsuario").val() == "crear") {
+        let nombre = $("#nombre").val();
+        let apellido_paterno = $("#apellido_paterno").val();
+        let usuario = "";
+        let input_usuario = $("#usuario");
+
+        // Dividir el nombre por espacios en blanco y tomar el primer nombre
+        let nombres = nombre.split(' ');
+        let primerNombre = nombres[0];
+
+        // Dividir el apellido por espacios en blanco y tomar el primer apellido
+        let apellidos = apellido_paterno.split(' ');
+        let primerApellido = apellidos[0];
+
+        if (primerNombre != '' && primerApellido != '') {
+            usuario = primerNombre + '.' + primerApellido + '#';
+            input_usuario.val(usuario.toLowerCase());
+        } else {
+            input_usuario.val('');
+        }
+    }
+
+})
+
+$("#permisosModal").on("hide.bs.modal", function () {
+    $("#users_id_permisos").val('');
 })
 
 
 //#endregion
 
 //#region funciones
+
+$("#btnGuardarPermisos").on('click', function () {
+
+    if ($("#users_id_permisos").val() <= 0 || $("#users_id_permisos").val() == '') {
+        return false;
+    }
+    var todosNodos = tree.getCheckedNodes();
+    var nodosValidos = [];
+
+    todosNodos.forEach(function (node) {
+        console.log(node);
+        if (node > 0) {
+            nodosValidos.push(node);
+        }
+    });
+
+    let data = {
+        id_permisos: nodosValidos,
+        id_users: $("#users_id_permisos").val()
+    }
+
+    $.ajax({
+        url: urlGuardarPermisos,
+        type: "POST",
+        data: data,
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Guardando información',
+                text: 'Espere un momento...',
+                didOpen: () => {
+                    swal.showLoading();
+                },
+            });
+        },
+        success: function (data) {
+            if (data.lSuccess) {
+                Swal.close();
+                $("#permisosModal").modal('hide');
+                Swal.fire({
+                    icon: 'success',
+                    title: "¡Correcto!",
+                    text: data.cMensaje,
+
+                })
+            } else {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error",
+                    text: data.cMensaje,
+                })
+            }
+        },
+        error: function () {
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: "Error",
+                text: "Ocurrió un error no controlado. Intente de nuevo.",
+            })
+        }
+    });
+})
+
 
 function saveUser() {
     let data = {
@@ -97,7 +197,51 @@ function saveUser() {
         fecha_nacimiento: $("#fecha_nacimiento").val(),
         ocupacion: $("#ocupacion").val()
     };
+    $.ajax({
+        url: urlSaveUser,
+        type: "POST",
+        encoding: "UTF-8",
+        cache: false,
+        data: data,
+        beforeSend: function () {
 
+            Swal.fire({
+                title: 'Guardando',
+                text: 'Espere un momento...',
+                didOpen: () => {
+                    swal.showLoading();
+                },
+            });
+        },
+        success: function (data) {
+            if (data.lSuccess) {
+                $("#usuarioModal").modal('hide');
+                Swal.close();
+                Swal.fire({
+                    icon: 'success',
+                    title: "¡Correcto!",
+                    html: data.cMensaje,
+
+                })
+                $("#gridUsuarios").bootstrapTable("refresh");
+            } else {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error",
+                    text: data.cMensaje,
+                })
+            }
+        },
+        error: function () {
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: "Error",
+                text: "Ocurrió un error no controlado. Intente de nuevo.",
+            })
+        }
+    });
 }
 
 function errorPermisos() {
@@ -111,6 +255,10 @@ function errorPermisos() {
 function getUserData(user_id) {
     $("#usuarioModal *").val('');
     $("#user_id").val('')
+    $("#modoUsuario").val("editar")
+
+    obtenerRoles();
+
     $.ajax({
         url: urlGetUserData,
         type: "POST",
@@ -169,7 +317,6 @@ function obtenerRoles() {
         url: urlGetRoles,
         type: "get",
         encoding: "UTF-8",
-        cache: false,
         beforeSend: function () {
             roleSelect.empty().attr('disabled', true).append($("<option></option>").attr("value", "").text("Cargando..."));
         },
@@ -187,6 +334,7 @@ function obtenerRoles() {
 
 
 function getPermisosUsuario(id, nombre) {
+    $("#users_id_permisos").val(id);
     $.ajax({
         url: urlGetPermisos,
         type: 'post',
@@ -245,7 +393,10 @@ function jQueryValidator() {
             usuario: {
                 required: true
             },
-            usuario: {
+            role_id: {
+                required: true
+            },
+            nombre: {
                 required: true
             },
             apellido_paterno: {

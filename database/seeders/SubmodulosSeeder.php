@@ -19,22 +19,22 @@ class SubmodulosSeeder extends Seeder
             'id_modulo' => '2',
             'nombre' => 'Cortes de caja',
             'descripcion' => 'Módulo de cortes de caja',
-            'icono' => 'fas fa-id-card',
+            'icono' => 'fas fa-cash-register',
             'url' => '/cortescaja/inicio'
         ]);
         Submodulos::create([
             'id_modulo' => '2',
             'nombre' => 'Estadisticas',
             'descripcion' => 'Módulo de estadisticas',
-            'icono' => 'fas fa-id-card',
-            'url' => '/membresias/inicio'
+            'icono' => 'fas fa-chart-bar',
+            'url' => '/estadisticas/inicio'
         ]);
         Submodulos::create([
             'id_modulo' => '2',
             'nombre' => 'Bitácoras',
             'descripcion' => 'Módulo de bitácoras',
-            'icono' => 'fas fa-id-card',
-            'url' => '/membresias/inicio'
+            'icono' => 'fas fa-file-alt',
+            'url' => '/bitacoras/inicio'
         ]);
 
         Submodulos::create([

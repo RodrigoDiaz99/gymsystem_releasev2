@@ -45,6 +45,27 @@ class PermisosSeeder extends Seeder
         Permisos::create([
             'id_modulo' => null,
             'id_submodulo' => '5',
+            'nombre' => 'Permiso de acceso al módulo de productos',
+            'clave' => 'MOD_PRODUCTOS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '6',
+            'nombre' => 'Permiso de acceso al módulo de categorías',
+            'clave' => 'MOD_CATEGORIAS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '7',
+            'nombre' => 'Permiso de acceso al módulo de usuarios',
+            'clave' => 'MOD_USUARIOS',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
+            'id_submodulo' => '8',
             'nombre' => 'Permiso de acceso al módulo de proveedores',
             'clave' => 'MOD_PROVEEDORES',
         ]);

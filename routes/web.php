@@ -28,9 +28,12 @@ use Illuminate\Support\Facades\View;
 |
  */
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('loginScreen');
+ Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('auth.login');
+    })->name('loginScreen');
+});
+
 
 Auth::routes(['register' => false, 'login' => false]);
 
