@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->permisos->contains('id', $permisoId);
     }
 
+    public function tienePermisoClave($clave)
+    {
+        return $this->permisos->contains('clave', $clave);
+    }
+
     public static function getPermisosCurrentUser()
     {
         $authUser = Auth::user();

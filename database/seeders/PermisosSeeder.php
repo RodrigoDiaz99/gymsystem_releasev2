@@ -66,6 +66,13 @@ class PermisosSeeder extends Seeder
 
         Permisos::create([
             'id_modulo' => null,
+            'id_submodulo' => '7',
+            'nombre' => 'Permiso de crear usuarios administradores',
+            'clave' => 'MOD_USUARIOS_CREARADM',
+        ]);
+
+        Permisos::create([
+            'id_modulo' => null,
             'id_submodulo' => '8',
             'nombre' => 'Permiso de acceso al módulo de proveedores',
             'clave' => 'MOD_PROVEEDORES',
