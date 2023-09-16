@@ -27,7 +27,13 @@ class UsuariosController extends Controller
 
     public function getRoles()
     {
-        return Roles::all();
+        $usuarioActual = User::find(Auth::user()->id);
+        if ($usuarioActual->tienePermisoClave('MOD_USUARIOS_CREARADM')) {
+
+            return Roles::all();
+        } else {
+            return Roles::where('nombre', '!=', 'Administrador')->get();
+        }
     }
 
     public function saveUser(Request $request)
@@ -161,13 +167,15 @@ class UsuariosController extends Controller
         } else  if ($modulo->permisos != null) {
             $lstPermisos = array();
             $permiso = $modulo->permisos;
-            $per = [
-                'id' => $permiso->id,
-                'tipo' => 'permiso',
-                'text' => 'Permiso: ' . $permiso->nombre,
-                'checked' => $user->tienePermiso($permiso->id),
-            ];
-            $lstPermisos[] = $per;
+            foreach ($modulo->permisos as $permiso) {
+                $per = [
+                    'id' => $permiso->id,
+                    'tipo' => 'permiso',
+                    'text' => 'Permiso: ' . $permiso->nombre,
+                    'checked' => $user->tienePermiso($permiso->id),
+                ];
+                $lstPermisos[] = $per;
+            }
 
             return $lstPermisos;
         } else {

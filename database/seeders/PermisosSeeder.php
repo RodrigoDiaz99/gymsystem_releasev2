@@ -19,6 +19,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '1',
             'nombre' => 'Permiso de acceso al módulo de membresías',
+            'tipo' => 'acceso',
             'clave' => 'MOD_MEMBRESIAS',
         ]);
 
@@ -26,6 +27,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '2',
             'nombre' => 'Permiso de acceso al módulo de Productos',
+            'tipo' => 'acceso',
             'clave' => 'MOD_PRODUCTO',
         ]);
 
@@ -33,6 +35,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '3',
             'nombre' => 'Permiso de acceso al módulo de categorías',
+            'tipo' => 'acceso',
             'clave' => 'MOD_CATEGORIAS',
         ]);
 
@@ -40,6 +43,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '4',
             'nombre' => 'Permiso de acceso al módulo de usuarios',
+            'tipo' => 'acceso',
             'clave' => 'MOD_USUARIOS',
         ]);
 
@@ -47,6 +51,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '5',
             'nombre' => 'Permiso de acceso al módulo de productos',
+            'tipo' => 'acceso',
             'clave' => 'MOD_PRODUCTOS',
         ]);
 
@@ -54,6 +59,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '6',
             'nombre' => 'Permiso de acceso al módulo de categorías',
+            'tipo' => 'acceso',
             'clave' => 'MOD_CATEGORIAS',
         ]);
 
@@ -61,6 +67,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '7',
             'nombre' => 'Permiso de acceso al módulo de usuarios',
+            'tipo' => 'acceso',
             'clave' => 'MOD_USUARIOS',
         ]);
 
@@ -68,13 +75,16 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '7',
             'nombre' => 'Permiso de crear usuarios administradores',
+            'tipo' => 'funcion',
             'clave' => 'MOD_USUARIOS_CREARADM',
         ]);
+
 
         Permisos::create([
             'id_modulo' => null,
             'id_submodulo' => '8',
             'nombre' => 'Permiso de acceso al módulo de proveedores',
+            'tipo' => 'acceso',
             'clave' => 'MOD_PROVEEDORES',
         ]);
 
@@ -82,6 +92,7 @@ class PermisosSeeder extends Seeder
             'id_modulo' => null,
             'id_submodulo' => '9',
             'nombre' => 'Permiso de acceso al módulo de expedientes',
+            'tipo' => 'acceso',
             'clave' => 'MOD_EXPEDIENTES',
         ]);
     }

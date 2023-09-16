@@ -11,7 +11,7 @@ class Submodulos extends Model
 
     public function permisos()
     {
-        return $this->hasOne(Permisos::class, 'id_submodulo');
+        return $this->hasMany(Permisos::class, 'id_submodulo');
     }
 
     public function modulo()

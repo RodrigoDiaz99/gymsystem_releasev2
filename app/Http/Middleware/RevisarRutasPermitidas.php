@@ -26,10 +26,12 @@ class RevisarRutasPermitidas
             $rutasPermitidas = [];
 
             foreach ($user->permisos as $permiso) {
-                if ($permiso->modulo) {
-                    $rutasPermitidas[] =  '/' . explode('/', $permiso->modulo->url)[1];
-                } elseif ($permiso->submodulo) {
-                    $rutasPermitidas[] =  '/' . explode('/', $permiso->submodulo->url)[1];
+                if ($permiso->tipo == "acceso") {
+                    if ($permiso->modulo) {
+                        $rutasPermitidas[] =  '/' . explode('/', $permiso->modulo->url)[1];
+                    } elseif ($permiso->submodulo) {
+                        $rutasPermitidas[] =  '/' . explode('/', $permiso->submodulo->url)[1];
+                    }
                 }
             }
 

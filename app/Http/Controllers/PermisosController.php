@@ -61,7 +61,7 @@ class PermisosController extends Controller
                 foreach ($modulos as $modulo) {
                     // Si no es menú (es módulo independiente)
                     if ($modulo->esMenu == 0) {
-                        if ($user->permisos->where('id_modulo', $modulo->id)->first() != null || $modulo->permisos == null) {
+                        if ($user->permisos->where('id_modulo', $modulo->id)->where('tipo', 'acceso')->first() != null || $modulo->permisos == null) {
                             $rutasPermitidas[] = [
                                 'esMenu' => $modulo->esMenu,
                                 'url' => $modulo->url,
@@ -79,7 +79,7 @@ class PermisosController extends Controller
                         $submodulos = [];
                         // Armar lista de submódulos
                         foreach ($modulo->submodulos as $submodulo) {
-                            if ($user->permisos->where('id_submodulo', $submodulo->id)->first() != null) {
+                            if ($user->permisos->where('id_submodulo', $submodulo->id)->where('tipo', 'acceso')->first() != null) {
                                 $submodulos[] =    [
                                     'url' => $submodulo->url,
                                     'tema' => $submodulo->tema,
