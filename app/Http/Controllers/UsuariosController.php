@@ -28,7 +28,7 @@ class UsuariosController extends Controller
     public function getRoles()
     {
         $usuarioActual = User::find(Auth::user()->id);
-        if ($usuarioActual->tienePermisoClave('MOD_USUARIOS_CREARADM')) {
+        if ($usuarioActual->tienePermisoClave('MOD_USUARIOS_CREARADM') || $usuarioActual->roles_id == '1') {
 
             return Roles::all();
         } else {

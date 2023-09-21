@@ -119,6 +119,28 @@ $("#permisosModal").on("hide.bs.modal", function () {
 
 //#region funciones
 
+$("#nombre, #apellido_paterno, #apellido_materno").on('input', function () {
+    var inputText = $(this).val();
+    var letrasAcentuadas = inputText.replace(/[^a-zA-ZáéíóúüÁÉÍÓÚÜ\s]/g, '');
+    $(this).val(letrasAcentuadas);
+
+    var palabras = $(this).val().split(" ");
+    var arr = [];
+    for (i in palabras) {
+        temp = palabras[i].toLowerCase();
+        temp = temp.charAt(0).toUpperCase() + temp.substring(1);
+        arr.push(temp);
+    }
+    $(this).val(arr.join(" "));
+});
+
+$('#telefono, #telefono_contacto').on('input', function () {
+    var inputText = $(this).val();
+    var numeros = inputText.replace(/[^0-9]/g, '');
+    $(this).val(numeros);
+
+});
+
 $("#btnGuardarPermisos").on('click', function () {
 
     if ($("#users_id_permisos").val() <= 0 || $("#users_id_permisos").val() == '') {
