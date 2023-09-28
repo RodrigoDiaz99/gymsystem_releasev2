@@ -19,7 +19,7 @@ $(function () {
         pageSize: 10,
         columns: [
             { field: "id", title: "ID", visible: false },
-            { field: "nombre_membresia", title: "Nombre", visible: true },
+            { field: "usuario.nombre", title: "Nombre", visible: true },
 
             {
                 field: "fecha_inicio",
@@ -50,11 +50,7 @@ $(function () {
                 title: "Diferencia",
 
             },
-            {
-                field: "users_id",
-                title: "Usuario",
 
-            },
 
         ],
         onLoadSuccess: (data) => {},

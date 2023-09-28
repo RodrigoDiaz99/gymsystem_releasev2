@@ -9,7 +9,7 @@ class CorteCaja extends Model
 {
     use HasFactory;
     protected $table = "corte_cajas";
-    public function user()
+    public function usuario()
     {
         return $this->belongsTo(User::class, 'users_id');
     }
