@@ -4,6 +4,7 @@ use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\CorteCajaController;
+use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
@@ -82,6 +83,13 @@ Route::middleware(['auth', 'permisos'])->group(function () {
     Route::controller(TipoMembresiaController::class)->prefix('membresias')->group(function () {
         Route::get('inicio', 'index')->name('membresias.index');
         Route::post('create', 'create')->name('membresias.create');
+        Route::put('update/{id}', 'update')->name('membresias.update');
+        require __DIR__ . '/ajax/membresias.php';
+    });
+
+    Route::controller(ExpedienteController::class)->prefix('expediente')->group(function () {
+        Route::get('inicio', 'index')->name('expediente.index');
+        Route::get('create', 'create')->name('expediente.create');
         Route::put('update/{id}', 'update')->name('membresias.update');
         require __DIR__ . '/ajax/membresias.php';
     });
