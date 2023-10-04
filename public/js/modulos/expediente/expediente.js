@@ -26,6 +26,7 @@ $(function () {
         width: 'resolve' // need to override the changed default
     });
     $("#fase_dos").hide();
+    $("#fase_tres").hide();
     $("#siguiente_fase_dos").click(function(){
         $("#fase_uno").fadeOut("fast");
         $("#fase_dos").fadeIn("fast");
@@ -34,6 +35,17 @@ $(function () {
       $("#anterior_fase_uno").click(function(){
         $("#fase_dos").fadeOut("fast");
         $("#fase_uno").fadeIn("fast");
+
+      });
+
+      $("#siguiente_fase_tres").click(function(){
+        $("#fase_dos").fadeOut("fast");
+        $("#fase_tres").fadeIn("fast");
+
+      });
+      $("#anterior_fase_dos").click(function(){
+        $("#fase_tres").fadeOut("fast");
+        $("#fase_dos").fadeIn("fast");
 
       });
 
@@ -47,6 +59,8 @@ $(function () {
           campoFecha.css("display", "none");
         }
       });
+      $('#tokenfield').tokenfield()
+
 
 });
 function getdatos_select(e) {

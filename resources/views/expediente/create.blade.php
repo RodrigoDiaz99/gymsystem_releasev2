@@ -37,7 +37,7 @@
                                 </div>
                             </div>
 
-                            <label for="">I. Identificacion</label>
+                            <h6 for="">I. Identificacion</h6>
                             <select id='search_user' name="search_user" class="form-control">
                                 <option value="">Seleccione una Opcion</option>
 
@@ -238,7 +238,7 @@
                                 </div>
 
                             </div>
-                            <label for="">II. Antecedentes personales en general</label>
+                            <h6 for="">II. Antecedentes personales en general</h6>
                             <div class="row">
                                 <div class="col-md">
                                     <label class="text-primary">Enfermedades Crónicas</label>
@@ -320,6 +320,7 @@
 
                         </div>
                         @include('expediente.creates.create2')
+                        @include('expediente.creates.create3')
                     </form>
 
                 </div>
