@@ -15,14 +15,20 @@ class CreateEnfermedadesCronicasTable extends Migration
     {
         Schema::create('enfermedades_cronicas', function (Blueprint $table) {
             $table->id();
-            $table->boolean('hipertension')->nullable();
-            $table->boolean('asma')->nullable();
-            $table->boolean('epilepsia')->nullable();
-            $table->boolean('ciatica')->nullable();
-            $table->boolean('diabetes')->nullable();
-            $table->boolean('lumbagia')->nullable();
-            $table->boolean('arritmia')->nullable();
-            $table->foreignId('expedientes_id')->constrained();
+            $table->boolean('hipertension_arterial')->nullable()->default(0);
+            $table->boolean('colesterol')->nullable()->default(0);
+            $table->boolean('trigliceridos')->nullable()->default(0);
+            $table->boolean('anemia')->nullable()->default(0);
+            $table->boolean('bronquitis')->nullable()->default(0);
+            $table->boolean('asma')->nullable()->default(0);
+            $table->boolean('convulsiones')->nullable()->default(0);
+
+            $table->boolean('nervio_ciatico')->nullable()->default(0);
+            $table->boolean('diabetes')->nullable()->default(0);
+            $table->boolean('lumbagia')->nullable()->default(0);
+            $table->boolean('arritmia')->nullable()->default(0);
+            $table->boolean('narcolepsia')->nullable()->default(0);
+            $table->foreignId('expedientes_id')->constrained()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

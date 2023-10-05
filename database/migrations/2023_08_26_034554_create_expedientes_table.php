@@ -16,18 +16,19 @@ class CreateExpedientesTable extends Migration
         Schema::create('expedientes', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date_interview')->nullable();
-
+            $table->string('tipo_dieta');
+            $table->string('servicio_medico');
             /**Condiciones Fisicas */
-            $table->boolean('desmayos')->nullable();
-            $table->boolean('mareos')->nullable();
-            $table->boolean('perdida_conocimiento')->nullable();
-            $table->boolean('hospitalizacion')->nullable();
-            /**Hospitalizaciones */
-            $table->string('causa_hospitalizacion')->nullable();
-            $table->date('fecha_hospitalizacion')->nullable();
-            /**Medicamentos */
-            $table->string('medicamentos')->nullable();
-            $table->string('numero_control')->nullable();
+            $table->boolean('descanso')->nullable()->default(0);
+            $table->boolean('hipermetropia')->nullable()->default(0);
+            $table->boolean('miopia')->nullable()->default(0);
+            $table->boolean('astigmatismo')->nullable()->default(0);
+            $table->boolean('desmayos')->nullable()->default(0);
+            $table->boolean('mareos')->nullable()->default(0);
+
+            $table->boolean('hospitalizaciones')->nullable()->default(0);
+            $table->boolean('fracturas')->nullable()->default(0);
+
             /**foraneas */
             $table->foreignId('users_id')->constrained();
             $table->timestamps();

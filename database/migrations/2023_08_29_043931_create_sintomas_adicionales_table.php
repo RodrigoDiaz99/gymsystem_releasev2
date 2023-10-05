@@ -17,17 +17,19 @@ class CreateSintomasAdicionalesTable extends Migration
             $table->id();
 
             /**Sintomas adicionales */
-            $table->boolean('alergias')->nullable();
-            $table->string('alergias_especificacion')->nullable();
-            $table->boolean('cefaleas')->nullable();
-            $table->boolean('vision_borrosa')->nullable();
-            $table->boolean('cancer')->nullable();
-            $table->boolean('ausencia_organos')->nullable();
-            $table->boolean('embarazos')->nullable();
-            $table->boolean('aborto')->nullable();
-            $table->boolean('metodo_anticonceptivo')->nullable();
-            $table->boolean('craneocefalico')->nullable();
-            $table->boolean('cervicales')->nullable();
+            $table->boolean('manchas_oscura_axilas')->nullable()->default(0);
+            $table->boolean('manchas_oscura_mejillas')->nullable()->default(0);
+            $table->boolean('manchas_oscura_entrepierna')->nullable()->default(0);
+            $table->boolean('manchas_rosada_rostro')->nullable()->default(0);
+            $table->boolean('manchas_blanca_boca')->nullable()->default(0);
+            $table->boolean('manchas_oscura_cuello')->nullable()->default(0);
+            $table->boolean('sintomas_cancer')->nullable()->default(0);
+            $table->boolean('acne')->nullable()->default(0);
+            $table->boolean('alergias')->nullable()->default(0);
+            $table->boolean('migraña')->nullable()->default(0);
+            $table->boolean('golpes_espalda')->nullable()->default(0);
+            $table->boolean('golpes_cabeza')->nullable()->default(0);
+            $table->string('medicamentos');
             $table->foreignId('expedientes_id')->constrained();
             $table->softDeletes();
             $table->timestamps();

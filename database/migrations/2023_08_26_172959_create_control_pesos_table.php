@@ -16,13 +16,10 @@ class CreateControlPesosTable extends Migration
         Schema::create('control_pesos', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_visita');
+            $table->string('talla_ropa');
+            $table->string('altura');
             $table->string('peso');
-            $table->string('IMC');
-            $table->string('grasa');
-            $table->string('musculo');
-            $table->string('KCAL');
-            $table->string('edad_blo');
-            $table->string('visceral');
+            $table->string('cuello');
             $table->string('busto');
             $table->string('cintura');
             $table->string('cadera');
@@ -30,6 +27,10 @@ class CreateControlPesosTable extends Migration
             $table->string('brazo_izq');
             $table->string('pierna_der');
             $table->string('pierna_izq');
+
+            $table->string('observaciones');
+            $table->string('alimentos_no_agradables');
+            $table->string('alergia_alimentos');
             $table->foreignId('expedientes_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
