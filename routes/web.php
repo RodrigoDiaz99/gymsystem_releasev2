@@ -90,14 +90,17 @@ Route::middleware(['auth', 'permisos'])->group(function () {
     Route::controller(ExpedienteController::class)->prefix('expediente')->group(function () {
         Route::get('inicio', 'index')->name('expediente.index');
         Route::get('create', 'create')->name('expediente.create');
-        Route::put('update/{id}', 'update')->name('membresias.update');
-        require __DIR__ . '/ajax/membresias.php';
+        Route::get('store', 'store')->name('expediente.store');
+        // Route::put('update/{id}', 'update')->name('membresias.update');
+        require __DIR__ . '/ajax/expediente.php';
     });
 
+    Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
+        Route::get('inicio', 'index')->name('corte.index');
+
+        require __DIR__ . '/ajax/cortecaja.php';
+    });
+
+
 });
 
-Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
-    Route::get('inicio', 'index')->name('corte.index');
-
-    require __DIR__ . '/ajax/cortecaja.php';
-});

@@ -31,23 +31,34 @@ $(function () {
         width: "resolve", // need to override the changed default
     });
     $("#fase_dos").hide();
+
     $("#fase_tres").hide();
+    $("#btn_fase_tres").hide();
     $("#siguiente_fase_dos").click(function () {
-        $("#fase_uno").fadeOut("fast");
-        $("#fase_dos").fadeIn("fast");
+        if ($("#form_expediente").valid()) {
+            $("#fase_uno").fadeOut("fast");
+            $("#fase_dos").fadeIn("fast");
+            $("#btn_fase_tres").hide();
+        }
     });
     $("#anterior_fase_uno").click(function () {
         $("#fase_dos").fadeOut("fast");
         $("#fase_uno").fadeIn("fast");
+        $("#btn_fase_tres").hide();
+
     });
 
     $("#siguiente_fase_tres").click(function () {
-        $("#fase_dos").fadeOut("fast");
-        $("#fase_tres").fadeIn("fast");
+        if ($("#form_expediente").valid()) {
+            $("#fase_dos").fadeOut("fast");
+            $("#fase_tres").fadeIn("fast");
+            $("#btn_fase_tres").show();
+        }
     });
     $("#anterior_fase_dos").click(function () {
         $("#fase_tres").fadeOut("fast");
         $("#fase_dos").fadeIn("fast");
+        $("#btn_fase_tres").hide();
     });
 
     $(".fecha-cirugia-checkbox").on("change", function () {
@@ -165,6 +176,177 @@ $(function () {
             $('input[name="extirpacion_vesicula"]').val("0");
         }
     });
+    $("#form_expediente").validate({
+        errorElement: "div",
+        errorClass: "invalid-feedback",
+        rules: {
+            tipo_dieta: {
+                required: true,
+            },
+            search_user: {
+                required: true,
+            },
+            ocupacion: {
+                required: true,
+            },
+            nombre: {
+                required: true,
+            },
+
+            apellido_paterno: {
+                required: true,
+            },
+            apellido_materno: {
+                required: true,
+            },
+            edad: {
+                required: true,
+            },
+
+            telefono: {
+                required: true,
+            },
+            fecha_nacimiento: {
+                required: true,
+            },
+            nombre_contacto: {
+                required: true,
+            },
+            servicio_medico: {
+                required: true,
+            },
+            numero_comidas: {
+                required: true,
+            },
+            ayunos: {
+                required: true,
+            },
+            sueño: {
+                required: true,
+            },
+            micciones_dia: {
+                required: true,
+            },
+            micciones_noche: {
+                required: true,
+            },
+            evacuaciones: {
+                required: true,
+            },
+
+            tabaco: {
+                required: true,
+            },
+            alcohol: {
+                required: true,
+            },
+            fecha_visita: {
+                required: true,
+            },
+            talla_ropa: {
+                required: true,
+            },
+
+            altura: {
+                required: true,
+            },
+            peso: {
+                required: true,
+            },
+            cuello: {
+                required: true,
+            },
+            busto: {
+                required: true,
+            },
+            cintura: {
+                required: true,
+            },
+            cadera: {
+                required: true,
+            },
+            brazo_der: {
+                required: true,
+            },
+            brazo_izq: {
+                required: true,
+            },
+            pierna_der: {
+                required: true,
+            },
+            pierna_izq: {
+                required: true,
+            },
+            observaciones: {
+                required: true,
+            },
+            alimentos_no_agradables: {
+                required: true,
+            },
+            alergia_alimentos: {
+                required: true,
+            },
+            path: {
+                required: true,
+            },
+            brazo_der: {
+                required: true,
+            },
+            brazo_der: {
+                required: true,
+            },
+        },
+        highlight: function (label, element) {
+            $(element)
+                .closest(".form-control")
+                .removeClass("is-valid")
+                .addClass("is-invalid");
+            $(label)
+                .closest(".form-control")
+                .removeClass("is-valid")
+                .addClass("is-invalid");
+        },
+        unhighlight: function (label, element) {
+            $(element)
+                .closest(".form-control")
+                .removeClass("is-invalid")
+                .addClass("is-valid");
+            $(label)
+                .closest(".form-control")
+                .removeClass("is-invalid")
+                .addClass("is-valid");
+        },
+
+        submitHandler: function (form) {
+            if ($("#form_expediente").valid()) {
+                // Si la validación es exitosa, puedes hacer algo aquí, como mostrar un mensaje o continuar con el envío del formulario.
+                form.submit(); // Esto enviará el formulario si es válido.
+            }
+        },
+    });
+    // Cambiar el idioma de los mensajes de error a español
+    $.extend($.validator.messages, {
+        required: "Este campo es obligatorio.",
+        // Aquí puedes personalizar otros mensajes de error según tus necesidades
+    });
+     // Escucha cambios en los radio buttons
+     $("input[name='ayunos']").change(function() {
+        var selectedOption = $("input[name='ayunos']:checked").val();
+
+        // Si se selecciona "Horas", establece el campo como obligatorio
+        if (selectedOption === "Horas") {
+            $("#horas_ayuno").rules("add", {
+                required: true,
+                messages: {
+                    required: "Este campo es obligatorio si selecciona 'Horas'."
+                }
+            });
+        } else {
+            // Si no se selecciona "Horas", quita la regla de validación
+            $("#horas_ayuno").rules("remove", "required");
+        }
+    });
+
 });
 function getdatos_select(e) {
     const a = document.getElementById("search_user").value;
@@ -177,7 +359,7 @@ function getdatos_select(e) {
     });
 
     $.ajax({
-        url: get_user,
+        url: getUsuario,
         type: "post",
         dataType: "json",
         data: {
@@ -188,26 +370,39 @@ function getdatos_select(e) {
                 icon: "success",
                 title: "Datos del cliente",
                 text: "Obteniendo la información, Espere Por Favor...",
+                didOpen: () => {
+                    swal.showLoading();
+                },
             });
         },
         success: function (data) {
             if (data) {
-                const { name, email, phone, ocupation, born, age } = data;
-                $("#name").val(name);
+                const {
+                    nombre,
+                    apellido_paterno,
+                    apellido_materno,
+                    email,
+                    telefono,
+                    ocupacion,
+                    fecha_nacimiento,
+                    edad,
+                    nombre_contacto,
+                } = data;
+                $("#ocupacion").val(ocupacion);
+                $("#nombre").val(nombre);
+                $("#apellido_paterno").val(apellido_paterno);
+                $("#apellido_materno").val(apellido_materno);
                 $("#email").val(email);
-                $("#phone").val(phone);
-                $("#ocupation").val(ocupation);
-                $("#born").val(born);
-                $("#age").val(age);
+                $("#telefono").val(telefono);
+                $("#nombre_contacto").val(nombre_contacto);
+                $("#fecha_nacimiento").val(fecha_nacimiento);
+                $("#edad").val(edad);
                 $("#collapseIdentificacion").collapse("show");
                 Swal.fire({
                     icon: "success",
                     title: "Clientes",
                     text: "Se encontraron los datos de manera exitosa",
-                    showConfirmButton: true,
-                    confirmButtonClass: "btn btn-primary btn-round",
                     confirmButtonText: "Aceptar",
-                    buttonsStyling: false,
                 });
             } else {
                 Swal.fire({

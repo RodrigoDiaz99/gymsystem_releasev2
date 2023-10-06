@@ -552,14 +552,5 @@
         </div>
 
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <button type="button" class="btn btn-primary" id="anterior_fase_dos">Anterior</button>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary" id="btnGuardarExpediente">Guardar</button>
-        </div>
-    </div>
+
 </div>
