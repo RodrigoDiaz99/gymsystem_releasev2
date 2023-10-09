@@ -17,7 +17,7 @@ class CreateHabitosPsicobiologicosTable extends Migration
             $table->id();
             $table->string('numero_comidas');
             $table->string('ayunos');
-            $table->integer('horas_ayuno');
+            $table->integer('horas_ayuno')->nullable();
             $table->string('sueño');
             $table->string('micciones_dia');
             $table->string('micciones_noche');

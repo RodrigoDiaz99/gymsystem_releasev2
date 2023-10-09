@@ -25,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="extirpacion_matriz">
+                    <input class="form-check-input" type="checkbox" value="1" id="extirpacion_matriz" name="extirpacion_matriz">
                     <label class="form-check-label" for="extirpacion_matriz">
                         Extirpacion de matriz
                     </label>
