@@ -18,16 +18,17 @@ class CreateExpedientesTable extends Migration
             $table->dateTime('date_interview')->nullable();
             $table->string('tipo_dieta');
             $table->string('servicio_medico');
+            $table->integer('numero_control');
             /**Condiciones Fisicas */
-            $table->boolean('descanso')->nullable()->default(0);
-            $table->boolean('hipermetropia')->nullable()->default(0);
-            $table->boolean('miopia')->nullable()->default(0);
-            $table->boolean('astigmatismo')->nullable()->default(0);
-            $table->boolean('desmayos')->nullable()->default(0);
-            $table->boolean('mareos')->nullable()->default(0);
+            $table->boolean('descanso')->default(0);
+            $table->boolean('hipermetropia')->default(0);
+            $table->boolean('miopia')->default(0);
+            $table->boolean('astigmatismo')->default(0);
+            $table->boolean('desmayos')->default(0);
+            $table->boolean('mareos')->default(0);
 
-            $table->boolean('hospitalizaciones')->nullable()->default(0);
-            $table->boolean('fracturas')->nullable()->default(0);
+            $table->boolean('hospitalizaciones')->default(0);
+            $table->boolean('fracturas')->default(0);
 
             /**foraneas */
             $table->foreignId('users_id')->constrained();

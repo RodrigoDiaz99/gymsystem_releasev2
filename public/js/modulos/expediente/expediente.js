@@ -346,7 +346,46 @@ $(function () {
             $("#horas_ayuno").rules("remove", "required");
         }
     });
+    $("#gridExpediente").bootstrapTable({
+        url: getExpediente,
+        classes: "table-striped",
+        method: "post",
+        locale: "es-MX",
+        contentType: "application/x-www-form-urlencoded",
+        theadClasses: "text-primary", // Agrega la clase table-dark al thead
+        pagination: true,
+        pageSize: 10,
+        striped: true,
+        pagination: true,
+        search: true,
+        pageSize: 10,
+        detailView: true,
+        columns: [
+            { field: "id", title: "ID", visible: false },
+            { field: "usuario.nombre", title: "Nombre", visible: true },
 
+            {
+                field: "usuario.codigo_usuario",
+                title: "Codigo Usuario",
+
+                visible: true,
+            },
+            {
+                field: "date_interview",
+                title: "Fecha Entrevista",
+            },
+
+            {
+                field: "precio_venta",
+                title: "Acciones",
+                formatter: "accionesFormatter",
+            },
+        ],
+        onExpandRow: async (index, row, $detail) => {
+            const $table = $detail.html('<table class="table table-striped table-bordered" cellspacing="0"></table>').find('table');
+            await expandTable(row, $table);
+          },
+    });
 });
 function getdatos_select(e) {
     const a = document.getElementById("search_user").value;
@@ -535,4 +574,47 @@ function showImgs(IDfImagenes, divDataImagenes) {
     });
 
     //'<img class="zoom img-file-input" id="img' + index + '" onclick="showFancyBox($(this))" src="' + reader.result + '"/>' +
+}
+function expandTable(row, $detail) {
+    console.log(row, "--", $detail);
+    $detail.bootstrapTable({
+        url: getExpedienteUsuario,
+        method: "post",
+        contentType: "application/x-www-form-urlencoded",
+        queryParams: function (p) {
+            return {
+                user_id: row.users_id,
+                code_user: row.usuario.codigo_usuario,
+            };
+        },
+        detailView: true,
+        icons: {
+            detailOpen: "fas fa-plus",
+            detailClose: "fas fa-minus",
+        },
+        pagination: true,
+        pageSize: 10,
+        columns: [
+            {
+                field: "id",
+                title: "id",
+
+                visible: false,
+            },
+            {
+                field: "numero_control",
+                title: "Numero Expediente",
+            },
+            {
+                field: "cedicion",
+                title: "Acciones",
+                formatter: "editFormatter",
+            },
+        ],
+        onLoadSuccess: function (data) {
+            $detail.bootstrapTable("hideLoading");
+        },
+    });
+    $detail.bootstrapTable("showLoading");
+    $detail.bootstrapTable("refresh");
 }

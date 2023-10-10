@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CorteCaja::class, 'users_id');
     }
+
+    public function expedientes()
+    {
+        return $this->hasMany(Expediente::class, 'users_id');
+    }
 }

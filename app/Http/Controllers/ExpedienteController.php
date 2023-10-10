@@ -7,6 +7,7 @@ use App\Models\ControlPeso;
 use App\Models\EnfermedadesCronicas;
 use App\Models\EnfermedadesMentales;
 use App\Models\Expediente;
+use App\Models\ExpedienteFoto;
 use App\Models\HabitosPsicobiologicos;
 use App\Models\SintomasAdicionales;
 use App\Models\Suplementos;
@@ -14,6 +15,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ExpedienteController extends Controller
 {
@@ -35,6 +37,23 @@ class ExpedienteController extends Controller
     {
         $user = User::where('id', $request->user_id)->first();
         return $user;
+    }
+    public function getExpediente()
+    {
+        $getExpediente = Expediente::with(['usuario:id,nombre,usuario,codigo_usuario'])->orderByDesc('created_at')
+            ->get();
+
+        return $getExpediente;
+    }
+
+    public function getExpedienteUsuario(Request $request){
+
+$expediente = Expediente::orderBy('id', 'asc')
+->where('users_id', $request->user_id)
+->select('id', 'numero_control')
+->get();
+
+return $expediente;
     }
     public function store(Request $request)
     {
@@ -86,6 +105,7 @@ class ExpedienteController extends Controller
             $expediente->mareos = in_array('mareos', $usoLentes);
             $expediente->hospitalizaciones = in_array('hospitalizaciones', $usoLentes);
             $expediente->fracturas = in_array('fracturas', $usoLentes);
+            $expediente->numero_control = 1;
             $expediente->users_id = $user->id;
             $expediente->save();
             $enfermedadesCronicas = $request->enfermedades_cronicas;
@@ -105,7 +125,7 @@ class ExpedienteController extends Controller
             $enfermedades_cronicas->expedientes_id = $expediente->id;
             $enfermedades_cronicas->save();
 
-            $enfermedadesMentales = $request->enfermedades_cronicas;
+            $enfermedadesMentales = $request->enfermedades_mentales;
             $enfermedades_mentales = new EnfermedadesMentales();
             $enfermedades_mentales->ansiedad = in_array('ansiedad', $enfermedadesMentales);
             $enfermedades_mentales->anorexia = in_array('anorexia', $enfermedadesMentales);
@@ -120,27 +140,39 @@ class ExpedienteController extends Controller
             $enfermedades_mentales->expedientes_id = $expediente->id;
             $enfermedades_mentales->save();
 
+
+            $cesarea = $request->cesarea == 1 ? $request->cesarea : 0;
+            $extirpacion_matriz = $request->extirpacion_matriz == 1 ? $request->extirpacion_matriz : 0;
+            $embarazo = $request->embarazo == 1 ? $request->embarazo : 0;
+
+            $abortos = $request->abortos == 1 ? $request->abortos : 0;
+            $extirpacion_apendice = $request->extirpacion_apendice == 1 ? $request->extirpacion_apendice : 0;
+            $extirpacion_vesicula = $request->extirpacion_vesicula == 1 ? $request->extirpacion_vesicula : 0;
+            $hernias = $request->hernias == 1 ? $request->hernias : 0;
+            $extirpacion_senos = $request->extirpacion_senos == 1 ? $request->extirpacion_senos : 0;
+            $piedras_riñon = $request->piedras_riñon == 1 ? $request->piedras_riñon : 0;
+            $otro = $request->otro == 1 ? $request->otro : 0;
             $cirugias = new Cirugias();
-            $cirugias->cesarea = $request->cesarea;
+            $cirugias->cesarea = $cesarea;
             $cirugias->fecha_cesarea = $request->fecha_cesarea;
-            $cirugias->extirpacion_matriz = $request->extirpacion_matriz;
+            $cirugias->extirpacion_matriz = $extirpacion_matriz;
             $cirugias->fecha_extirpacion = $request->fecha_extirpacion;
-            $cirugias->embarazo = $request->embarazo;
+            $cirugias->embarazo = $embarazo;
             $cirugias->fecha_embarazo = $request->fecha_embarazo;
             $cirugias->numero_embarazos = $request->numero_embarazos;
-            $cirugias->abortos = $request->abortos;
+            $cirugias->abortos = $abortos;
             $cirugias->fecha_aborto = $request->fecha_aborto;
-            $cirugias->extirpacion_apendice = $request->extirpacion_apendice;
+            $cirugias->extirpacion_apendice = $extirpacion_apendice;
             $cirugias->fecha_extirpacion_apendice = $request->fecha_extirpacion_apendice;
-            $cirugias->extirpacion_vesicula = $request->extirpacion_vesicula;
+            $cirugias->extirpacion_vesicula = $extirpacion_vesicula;
             $cirugias->fecha_extirpacion_vesicula = $request->fecha_extirpacion_vesicula;
-            $cirugias->hernias = $request->hernias;
+            $cirugias->hernias = $hernias;
             $cirugias->fecha_hernias = $request->fecha_hernias;
-            $cirugias->extirpacion_senos = $request->extirpacion_senos;
+            $cirugias->extirpacion_senos = $extirpacion_senos;
             $cirugias->fecha_extirpacion_senos = $request->fecha_extirpacion_senos;
-            $cirugias->piedras_riñon = $request->piedras_riñon;
+            $cirugias->piedras_riñon = $piedras_riñon;
             $cirugias->fecha_piedras_riñon = $request->fecha_piedras_riñon;
-            $cirugias->otro = $request->otro;
+            $cirugias->otro = $otro;
 
             $cirugias->explicacion_otro = $request->explicacion_otro;
             $cirugias->expedientes_id = $expediente->id;
@@ -189,13 +221,13 @@ class ExpedienteController extends Controller
             $control_peso->cintura = $request->cintura;
             $control_peso->cadera = $request->cadera;
             $control_peso->brazo_der = $request->brazo_der;
-            $control_peso->brazo_izq = $expediente->brazo_izq;
+            $control_peso->brazo_izq = $request->brazo_izq;
 
-            $control_peso->pierna_der = $expediente->pierna_der;
-            $control_peso->pierna_izq = $expediente->pierna_izq;
-            $control_peso->observaciones = $expediente->observaciones;
-            $control_peso->alimentos_no_agradables = $expediente->alimentos_no_agradables;
-            $control_peso->alergia_alimentos = $expediente->alergia_alimentos;
+            $control_peso->pierna_der = $request->pierna_der;
+            $control_peso->pierna_izq = $request->pierna_izq;
+            $control_peso->observaciones = $request->observaciones;
+            $control_peso->alimentos_no_agradables = $request->alimentos_no_agradables;
+            $control_peso->alergia_alimentos = $request->alergia_alimentos;
             $control_peso->expedientes_id = $expediente->id;
             $control_peso->save();
 
@@ -231,10 +263,35 @@ class ExpedienteController extends Controller
             $suplementos->expedientes_id = $expediente->id;
             $control_peso->save();
 
+            if ($request->hasFile('path')) {
+                $imagenes = $request->file('path');
+                // dd($imagenes);
+                $i = 1;
+
+                foreach ($imagenes as $imagen) {
+                    $nombre = time() . $i . '_' . $user->name . '_' . $expediente->numero_control . '_' . $expediente->id . '.' . $imagen->getClientOriginalExtension();
+                    //$ruta = 'app/public/imagenes/' . $usuario->name . "/".$record->numero_control."/" . $nombre;
+                    $ruta = storage_path('app/public/imagenes/' . $user->name . '/' . $expediente->numero_control . '/' . $nombre);
+                    $photo = new ExpedienteFoto();
+                    $photo->ruta = $ruta;
+                    $photo->expedientes_id = $expediente->id;
+                    //dd($photo,$ruta,storage_path('app/public/imagenes/' . $usuario->name . "/".$record->numero_control."/" . $nombre));
+                    $photo->save();
+                    $contenido_archivo = file_get_contents($imagen);
+                    $route = 'imagenes/' . $user->name . '/' . $expediente->numero_control . '/' . $nombre;
+                    $laravel_path = Storage::disk('public')->put($route, $contenido_archivo);
+                    $i++;
+                }
+            }
+
             DB::commit();
+            return redirect()
+            ->route('expediente.index')
+            ->with('success', '¡Se agrego el expediente del usuario de forma exitosa!');
         } catch (\Throwable $th) {
             DB::rollBack();
             dd($th);
+            return back()->with('error', 'Hubo un error al agregar los datos. Verifique los datos.');
         }
 
     }

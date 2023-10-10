@@ -19,7 +19,7 @@
                         <h6 class="mb-0">Expediente</h6>
                     </div>
                     <div class="card-body p-3">
-                        <table class="table align-items-center" id="gridMembresias">
+                        <table class="table align-items-center" id="gridExpediente">
 
                         </table>
                     </div>
@@ -27,13 +27,13 @@
             </div>
         </div>
     </div>
-@include('membresias.modales.create')
-@include('membresias.modales.edit')
+
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/modulos/membresias/membresias.js') }}"></script>
+    <script src="{{ asset('js/modulos/expediente/expediente.js') }}"></script>
     <script>
-        let getMembresias = "{{route('membresias.getMembresias')}}";
+        let getExpediente = "{{route('expediente.getExpediente')}}";
+        let getExpedienteUsuario = "{{route('expediente.getExpedienteUsuario')}}";
         let membresiasEdit = "{{route('membresias.edit')}}";
         let membresiasUpdateroute = @json(route('membresias.update', ''));
     </script>
