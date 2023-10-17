@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class ExpedienteController extends Controller
 {
@@ -46,14 +47,15 @@ class ExpedienteController extends Controller
         return $getExpediente;
     }
 
-    public function getExpedienteUsuario(Request $request){
+    public function getExpedienteUsuario(Request $request)
+    {
 
-$expediente = Expediente::orderBy('id', 'asc')
-->where('users_id', $request->user_id)
-->select('id', 'numero_control')
-->get();
+        $expediente = Expediente::orderBy('id', 'asc')
+            ->where('users_id', $request->user_id)
+            ->select('id', 'numero_control')
+            ->get();
 
-return $expediente;
+        return $expediente;
     }
     public function store(Request $request)
     {
@@ -69,7 +71,7 @@ return $expediente;
             $telefono = $request->telefono;
             $fechaNacimiento = $request->fecha_nacimiento;
             $NombreContacto = $request->nombre_contacto;
-
+            $ocupacion = $request->ocupacion;
             $user = User::findOrFail($UserId);
 
             $user->nombre = $UserNombre;
@@ -79,6 +81,7 @@ return $expediente;
             $user->edad = $edad;
             $user->fecha_nacimiento = $fechaNacimiento;
             $user->nombre_contacto = $NombreContacto;
+            $user->ocupacion = $ocupacion;
             $user->expediente = true;
             $user->update();
 
@@ -139,7 +142,6 @@ return $expediente;
             $enfermedades_mentales->fobias = in_array('lumbagia', $enfermedadesCronicas);
             $enfermedades_mentales->expedientes_id = $expediente->id;
             $enfermedades_mentales->save();
-
 
             $cesarea = $request->cesarea == 1 ? $request->cesarea : 0;
             $extirpacion_matriz = $request->extirpacion_matriz == 1 ? $request->extirpacion_matriz : 0;
@@ -286,13 +288,45 @@ return $expediente;
 
             DB::commit();
             return redirect()
-            ->route('expediente.index')
-            ->with('success', '¡Se agrego el expediente del usuario de forma exitosa!');
+                ->route('expediente.index')
+                ->with('success', '¡Se agrego el expediente del usuario de forma exitosa!');
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+
             return back()->with('error', 'Hubo un error al agregar los datos. Verifique los datos.');
         }
 
     }
+    public function edit($id)
+    {
+        $record = Expediente::where('users_id', $id)
+            ->latest('created_at')
+            ->first();
+
+        return view('expediente.edit', compact('record'))->render();
+    }
+
+    public function pdfExpediente($id)
+    {
+        $expediente = Expediente::find($id)
+
+            ->orderByDesc('created_at')
+            ->first();
+
+        $getExpediente = Expediente::find($id)
+
+            ->orderByDesc('created_at')
+            ->get();
+
+        $getExpedienteCount = Expediente::find($id)
+
+            ->count();
+
+        $pdf = PDF::loadView('expediente/pdf/expediente', compact('expediente', 'getExpediente','getExpedienteCount'))->setPaper('A4', 'portrait');
+        $pdf->output();
+        $filename = 'Expediente' . '_' . $expediente->numero_control . '.pdf';
+        return $pdf->stream($filename);
+
+    }
+
 }

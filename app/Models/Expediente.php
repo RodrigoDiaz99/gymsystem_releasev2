@@ -37,7 +37,7 @@ class Expediente extends Model
     {
         return $this->hasOne(HabitosPsicobiologicos::class, 'expedientes_id');
     }
-    public function controlesPeso()
+    public function controlPeso()
     {
         return $this->hasMany(ControlPeso::class, 'expedientes_id');
     }
@@ -55,10 +55,10 @@ class Expediente extends Model
     }
     public function cirugia()
     {
-        return $this->hasOne(Cirugia::class, 'expedientes_id');
+        return $this->hasOne(Cirugias::class, 'expedientes_id');
     }
     public function suplemento()
     {
-        return $this->hasOne(Suplemento::class, 'expedientes_id');
+        return $this->hasOne(Suplementos::class, 'expedientes_id');
     }
 }

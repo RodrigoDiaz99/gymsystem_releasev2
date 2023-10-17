@@ -45,6 +45,7 @@ class CreateSuplementosTable extends Migration
             $table->boolean('farmasi')->default(0);
             $table->boolean('otros')->default(0);
             $table->foreignId('expedientes_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

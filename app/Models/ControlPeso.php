@@ -10,7 +10,7 @@ class ControlPeso extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = "control_peso";
+    protected $table = "control_pesos";
     protected $fillable = [
         'fecha_visita',
         'talla_ropa',
