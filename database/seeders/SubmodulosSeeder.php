@@ -21,7 +21,7 @@ class SubmodulosSeeder extends Seeder
             'descripcion' => 'Módulo de cortes de caja',
             'icono' => 'fas fa-cash-register',
             'tema' => 'text-danger',
-            'url' => '/cortescaja/inicio'
+            'url' => '/corte/inicio'
         ]);
         Submodulos::create([
             'id_modulo' => '2',
@@ -89,7 +89,7 @@ class SubmodulosSeeder extends Seeder
             'descripcion' => 'Módulo de expedientes',
             'icono' => 'fas fa-notes-medical',
             'tema' => 'text-primary',
-            'url' => '/expedientes/inicio'
+            'url' => '/expediente/inicio'
         ]);
     }
 }
