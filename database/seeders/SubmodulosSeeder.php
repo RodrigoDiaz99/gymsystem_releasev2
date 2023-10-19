@@ -17,6 +17,14 @@ class SubmodulosSeeder extends Seeder
         // Crear submódulos (los que están bajo la sección)
         Submodulos::create([
             'id_modulo' => '2',
+            'nombre' => 'Administrar módulos',
+            'descripcion' => 'Administrar módulos',
+            'icono' => 'fas fa-cash-register',
+            'tema' => 'text-danger',
+            'url' => '/administracion/modulos'
+        ]);
+        Submodulos::create([
+            'id_modulo' => '3',
             'nombre' => 'Cortes de caja',
             'descripcion' => 'Módulo de cortes de caja',
             'icono' => 'fas fa-cash-register',
@@ -24,7 +32,7 @@ class SubmodulosSeeder extends Seeder
             'url' => '/corte/inicio'
         ]);
         Submodulos::create([
-            'id_modulo' => '2',
+            'id_modulo' => '3',
             'nombre' => 'Estadisticas',
             'descripcion' => 'Módulo de estadisticas',
             'icono' => 'fas fa-chart-bar',
@@ -32,7 +40,7 @@ class SubmodulosSeeder extends Seeder
             'url' => '/estadisticas/inicio'
         ]);
         Submodulos::create([
-            'id_modulo' => '2',
+            'id_modulo' => '3',
             'nombre' => 'Bitácoras',
             'descripcion' => 'Módulo de bitácoras',
             'icono' => 'fas fa-file-alt',
@@ -41,7 +49,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '3',
+            'id_modulo' => '4',
             'nombre' => 'Membresías',
             'descripcion' => 'Módulo de membresías',
             'icono' => 'fas fa-id-card',
@@ -50,7 +58,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '3',
+            'id_modulo' => '4',
             'nombre' => 'Productos',
             'descripcion' => 'Módulo de Productos',
             'icono' => 'fas fa-shopping-bag',
@@ -59,7 +67,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '3',
+            'id_modulo' => '4',
             'nombre' => 'Categorías',
             'descripcion' => 'Módulo de Categorías',
             'icono' => 'fas fa-folder-open',
@@ -68,7 +76,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '4',
+            'id_modulo' => '5',
             'nombre' => 'Usuarios',
             'descripcion' => 'Módulo de usuarios',
             'icono' => 'fas fa-user',
@@ -76,7 +84,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '4',
+            'id_modulo' => '5',
             'nombre' => 'Proveedores',
             'descripcion' => 'Módulo de proveedores',
             'icono' => 'fas fa-truck-moving',
@@ -84,7 +92,7 @@ class SubmodulosSeeder extends Seeder
         ]);
 
         Submodulos::create([
-            'id_modulo' => '4',
+            'id_modulo' => '5',
             'nombre' => 'Expedientes',
             'descripcion' => 'Módulo de expedientes',
             'icono' => 'fas fa-notes-medical',

@@ -59,6 +59,7 @@ class AdministracionController extends Controller
                     $permiso->nombre = $request->permiso_nombre;
                     $permiso->clave = $request->permiso_clave;
                     $permiso->descripcion = $request->permiso_descripcion;
+                    $permiso->tipo = "acceso";
                     $permiso->save();
                     break;
                 case "esSubmodulo":
@@ -75,6 +76,7 @@ class AdministracionController extends Controller
                     $permiso->nombre = $request->permiso_nombre;
                     $permiso->clave = $request->permiso_clave;
                     $permiso->descripcion = $request->permiso_descripcion;
+                    $permiso->tipo = "acceso";
                     $permiso->save();
                     break;
             }

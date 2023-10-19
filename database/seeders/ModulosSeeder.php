@@ -27,6 +27,14 @@ class ModulosSeeder extends Seeder
 
         // Crear menús
         Modulos::create([
+            'nombre' => 'Administración',
+            'descripcion' => 'Sección de administración',
+            'icono' => null,
+            'esMenu' => 1,
+            'url' => '/'
+        ]);
+
+        Modulos::create([
             'nombre' => 'Información',
             'descripcion' => 'Sección de información',
             'icono' => null,
