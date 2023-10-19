@@ -19,7 +19,7 @@ class SubmodulosSeeder extends Seeder
             'id_modulo' => '2',
             'nombre' => 'Administrar módulos',
             'descripcion' => 'Administrar módulos',
-            'icono' => 'fas fa-cash-register',
+            'icono' => 'far fa-window-restore',
             'tema' => 'text-danger',
             'url' => '/administracion/modulos'
         ]);
