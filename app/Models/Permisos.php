@@ -13,10 +13,17 @@ class Permisos extends Model
     protected $cast = [
         'esPadre' => 'boolean'
     ];
-    public function modulos()
+    public function modulo()
     {
-        return $this->belongsTo(Modulos::class, 'modulo_id');
+        return $this->belongsTo(Modulos::class, 'id_modulo');
     }
+
+    public function submodulo()
+    {
+        return $this->belongsTo(Submodulos::class, 'id_submodulo');
+    }
+
+
 
 
 }

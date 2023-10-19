@@ -7,6 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismisss="modal" aria-label="Close"></button>
             </div>
             <input id="user_id" type="hidden" name="user_id" value="">
+            <input id="modoUsuario" type="hidden" name="modoUsuario" value="crear">
             <form id="usuarioForm">
                 <div class="modal-body">
                     @csrf
@@ -16,7 +17,8 @@
                             <div class="form-group">
                                 <label class="text-primary ">Nombre de usuario <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="usuario" class="form-control " type="text" name="usuario" value="" placeholder="Nombre de usuario">
+                                    <input id="usuario" class="form-control " readonly type="text" name="usuario" value=""
+                                        placeholder="Nombre de usuario">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +40,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Nombre(s) <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="nombre" class="form-control " type="text" name="nombre" value="" placeholder="Nombre(s)">
+                                    <input id="nombre" class="form-control " maxlength="128" type="text" name="nombre" value="" placeholder="Nombre(s)">
                                 </div>
                             </div>
                         </div>
@@ -46,7 +48,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Apellido paterno <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="apellido_paterno" class="form-control " type="text" name="apellido_paterno" value=""
+                                    <input id="apellido_paterno" class="form-control " maxlength="128" type="text" name="apellido_paterno" value=""
                                         placeholder="Apellido paterno">
                                 </div>
                             </div>
@@ -55,7 +57,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Apellido materno</label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="apellido_materno" class="form-control " type="text" name="apellido_materno" value=""
+                                    <input id="apellido_materno" class="form-control " maxlength="128" type="text" name="apellido_materno" value=""
                                         placeholder="Apellido paterno">
                                 </div>
                             </div>
@@ -67,7 +69,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Correo electrónico <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="email" class="form-control " type="text" name="email" value="" placeholder="Correo electrónico">
+                                    <input id="email" class="form-control " type="email" maxlength="128" name="email" value="" placeholder="Correo electrónico">
                                 </div>
                             </div>
                         </div>
@@ -76,16 +78,18 @@
                             <div class="form-group">
                                 <label class="text-primary ">Teléfono <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="telefono" class="form-control " type="text" name="telefono" value="" placeholder="Teléfono">
+                                    <input id="telefono" class="form-control " maxlength="10" type="text" name="telefono" value=""
+                                        placeholder="Teléfono">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
+
                             <div class="form-group">
                                 <label class="text-primary ">Teléfono de contacto</label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="telefono_contacto" class="form-control " type="text" name="telefono_contacto" value=""
-                                        placeholder="Teléfono">
+                                    <input id="telefono_contacto" class="form-control " maxlength="10" type="text" name="telefono_contacto"
+                                        value="" placeholder="Teléfono de contacto">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +109,7 @@
                             <div class="form-group">
                                 <label class="text-primary ">Ocupación </label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="ocupacion" class="form-control " type="text" name="email" value="" placeholder="ocupacion">
+                                    <input id="ocupacion" class="form-control " type="text" name="ocupacion" value="" placeholder="Ocupación">
                                 </div>
                             </div>
                         </div>

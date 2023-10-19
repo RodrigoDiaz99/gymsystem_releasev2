@@ -16,12 +16,11 @@ class CreateModulosTable extends Migration
         Schema::create('modulos', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
-            $table->string("urlBase")->nullable();
-            $table->string("url")->nullable();
             $table->string("descripcion")->nullable();
             $table->string("icono")->nullable();
-            $table->boolean("esPadre");
-            $table->bigInteger("modulo_padre")->nullable();
+            $table->string("tema")->nullable();
+            $table->boolean("esMenu");
+            $table->string("url")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
