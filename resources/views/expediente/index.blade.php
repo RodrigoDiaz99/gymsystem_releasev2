@@ -30,7 +30,7 @@
 
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/modulos/expediente/expediente.js') }}"></script>
+    <script src="{{ asset('js/modulos/expediente/expediente_index.js') }}"></script>
     <script>
         let getExpediente = "{{route('expediente.getExpediente')}}";
         let getExpedienteUsuario = "{{route('expediente.getExpedienteUsuario')}}";
