@@ -23,35 +23,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-primary ">Ícono <span class="text-danger">*</span></label>
-                                <div class="input-group input-group-alternative">
-                                    <input id="icon" class="form-control " type="text" name="icon" value="" placeholder="fas fa-user">
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="text-primary ">URL Base <span class="text-danger">*</span></label>
+                                <label class="text-primary ">Ícono</label>
                                 <div class="input-group input-group-alternative">
-                                    <div class="input-group input-group-alternative">
-                                        <input id="urlBase" class="form-control " type="text" name="urlBase" value="" placeholder="/usuarios">
-                                    </div>
+                                    <input id="icon" class="form-control " type="text" name="icon" value="" placeholder="fas fa-user">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="text-primary ">Url inicial <span class="text-danger">*</span></label>
+                                <label class="text-primary ">Tema</label>
                                 <div class="input-group input-group-alternative">
-                                    <input id="url" class="form-control " type="text" name="url" value="" placeholder="/usuarios/inicio">
+                                    <input id="tema" class="form-control " type="text" name="tema" value="" placeholder="text-primary">
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row moduloOptions" style="display:none;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-primary ">URL Base <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group input-group-alternative">
+                                        <input id="url" class="form-control " type="text" name="url" value="" placeholder="/usuarios/inicio">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -66,17 +69,29 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input id="esPadreCheck" class="form-check-input" type="checkbox" value="" checked>
-                                <label class="form-check-label" for="esPadreCheck">
-                                    Es padre
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input id="esMenu" class="form-check-input" value="esMenu" type="radio" name="tipoModulo" checked>
+                                <label class="form-check-label" for="esMenu">
+                                    Es menú - Módulo que actuará como menú.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="esPadre" class="form-check-input" type="radio" value="esPadre" name="tipoModulo">
+                                <label class="form-check-label" for="esPadre">
+                                    Es módulo padre - Módulo que NO actuará como menú.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="esSubmodulo" class="form-check-input" type="radio" value="esSubmodulo" name="tipoModulo">
+                                <label class="form-check-label" for="esSubmodulo">
+                                    Es submódulo - Módulo que está dentro de un menú.
                                 </label>
                             </div>
                         </div>
-                        <div id="moduloPadreSections" class="col-md-6" style="display:none;">
+                        <div class="col-md-6 submoduloOptions" style="display:none;">
                             <div class="form-group">
-                                <label class="text-primary">Módulo padre <span class="text-danger">*</span></label>
+                                <label class="text-primary">Menú padre <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-alternative">
                                     <select id="id_moduloPadre" class="form-control" name="id_moduloPadre">
                                     </select>
@@ -84,35 +99,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="moduloOptions" style="display:none;">
+                        <hr>
+                        <h6>Información del permiso</h6>
+                        <hr>
 
-                    <hr>
-                    <h6>Información del permiso</h6>
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-primary ">Nombre<span class="text-danger">*</span></label>
-                                <div class="input-group input-group-alternative">
-                                    <input id="permiso_nombre" class="form-control " type="text" name="permiso_nombre" value=""
-                                        placeholder="Permiso para acceder al módulo de usuarios">
+                        <div class="row ">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary ">Nombre<span class="text-danger">*</span></label>
+                                    <div class="input-group input-group-alternative">
+                                        <input id="permiso_nombre" class="form-control " type="text" name="permiso_nombre" value=""
+                                            placeholder="Permiso para acceder al módulo de usuarios">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-primary ">Clave identificadora<span class="text-danger">*</span></label>
-                                <div class="input-group input-group-alternative">
-                                    <input id="clave" class="form-control " type="text" name="clave" value="" placeholder="MOD_USUARIOS">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary ">Clave identificadora<span class="text-danger">*</span></label>
+                                    <div class="input-group input-group-alternative">
+                                        <input id="clave" class="form-control " type="text" name="clave" value=""
+                                            placeholder="MOD_USUARIOS">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-primary ">Descripcion</label>
-                                <div class="input-group input-group-alternative">
-                                    <input id="permiso_descripcion" class="form-control " type="text" name="permiso_descripcion" value=""
-                                        placeholder="Permiso para acceder al módulo de usuarios">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-primary ">Descripcion</label>
+                                    <div class="input-group input-group-alternative">
+                                        <input id="permiso_descripcion" class="form-control " type="text" name="permiso_descripcion" value=""
+                                            placeholder="Permiso para acceder al módulo de usuarios">
+                                    </div>
                                 </div>
                             </div>
                         </div>

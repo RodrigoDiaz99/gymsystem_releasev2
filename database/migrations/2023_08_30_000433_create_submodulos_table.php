@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermisosTable extends Migration
+class CreateSubmodulosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePermisosTable extends Migration
      */
     public function up()
     {
-        Schema::create('permisos', function (Blueprint $table) {
+        Schema::create('submodulos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("id_modulo")->nullable()->references('id')->on('modulos');
-            $table->foreignId("id_submodulo")->nullable()->references('id')->on('submodulos');
+            $table->foreignId("id_modulo")->references('id')->on('modulos');
             $table->string("nombre");
-            $table->string("clave");
-            $table->string("tipo");
+            $table->string("url")->nullable();
             $table->string("descripcion")->nullable();
+            $table->string("icono")->nullable();
+            $table->string("tema")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ class CreatePermisosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permisos');
+        Schema::dropIfExists('submodulos');
     }
 }
