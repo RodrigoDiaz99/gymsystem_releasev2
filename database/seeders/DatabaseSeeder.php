@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ModulosSeeder::class,
             SubmodulosSeeder::class,
             PermisosSeeder::class,
+            ConfiguracionSeeder::class,
 
         ]);
     }
