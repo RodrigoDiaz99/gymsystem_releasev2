@@ -16,12 +16,17 @@ class CreateEnfermedadesMentalesTable extends Migration
         Schema::create('enfermedades_mentales', function (Blueprint $table) {
             $table->id();
             /**Enfermedades Mentales */
-            $table->boolean('ansiedad')->nullable();
-            $table->boolean('depresion')->nullable();
-            $table->boolean('depre_postparto')->nullable();
-            $table->boolean('estres_cronico')->nullable();
-            $table->boolean('estres_postraumatico')->nullable();
-            $table->foreignId('expedientes_id')->constrained();
+            $table->boolean('ansiedad')->default(0);
+            $table->boolean('anorexia')->default(0);
+            $table->boolean('bulimia')->default(0);
+            $table->boolean('obesidad')->default(0);
+            $table->boolean('epilepsia')->default(0);
+            $table->boolean('depresion')->default(0);
+            $table->boolean('depresion_postparto')->default(0);
+            $table->boolean('estres_cronico')->default(0);
+            $table->boolean('estres_postraumatico')->default(0);
+            $table->boolean('fobias')->default(0);
+            $table->foreignId('expedientes_id')->constrained()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

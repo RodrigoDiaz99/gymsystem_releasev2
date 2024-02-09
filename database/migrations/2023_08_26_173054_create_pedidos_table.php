@@ -15,10 +15,10 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('nnumero_orden');
+            $table->string('numero_orden');
             $table->string('linea_referencia');
+            $table->string('comentarios');
             $table->string('estatus');
-
             $table->foreignId('users_id')->constrained();
             $table->float('precio');
             $table->timestamps();

@@ -57,6 +57,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Permisos::class, 'users_has_permisos')->withPivot('id', 'deleted_at');
     }
 
+    public function tienePermiso($permisoId)
+    {
+        return $this->permisos->contains('id', $permisoId);
+    }
+
+    public function tienePermisoClave($clave)
+    {
+        return $this->permisos->contains('clave', $clave);
+    }
+
     public static function getPermisosCurrentUser()
     {
         $authUser = Auth::user();
@@ -68,5 +78,10 @@ class User extends Authenticatable
     public function corteCajas()
     {
         return $this->hasMany(CorteCaja::class, 'users_id');
+    }
+
+    public function expedientes()
+    {
+        return $this->hasMany(Expediente::class, 'users_id');
     }
 }

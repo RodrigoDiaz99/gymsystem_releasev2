@@ -17,17 +17,19 @@ class CreateSintomasAdicionalesTable extends Migration
             $table->id();
 
             /**Sintomas adicionales */
-            $table->boolean('alergias')->nullable();
-            $table->string('alergias_especificacion')->nullable();
-            $table->boolean('cefaleas')->nullable();
-            $table->boolean('vision_borrosa')->nullable();
-            $table->boolean('cancer')->nullable();
-            $table->boolean('ausencia_organos')->nullable();
-            $table->boolean('embarazos')->nullable();
-            $table->boolean('aborto')->nullable();
-            $table->boolean('metodo_anticonceptivo')->nullable();
-            $table->boolean('craneocefalico')->nullable();
-            $table->boolean('cervicales')->nullable();
+            $table->boolean('manchas_oscura_axilas')->default(0);
+            $table->boolean('manchas_oscura_mejillas')->default(0);
+            $table->boolean('manchas_oscura_entrepierna')->default(0);
+            $table->boolean('manchas_rosada_rostro')->default(0);
+            $table->boolean('manchas_blanca_boca')->default(0);
+            $table->boolean('manchas_oscura_cuello')->default(0);
+            $table->boolean('sintomas_cancer')->default(0);
+            $table->boolean('acne')->default(0);
+            $table->boolean('alergias')->default(0);
+            $table->boolean('migraña')->default(0);
+            $table->boolean('golpes_espalda')->default(0);
+            $table->boolean('golpes_cabeza')->default(0);
+            $table->string('medicamentos');
             $table->foreignId('expedientes_id')->constrained();
             $table->softDeletes();
             $table->timestamps();

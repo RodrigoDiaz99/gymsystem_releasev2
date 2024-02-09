@@ -15,10 +15,12 @@ class CreatePermisosTable extends Migration
     {
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("modulo_id");
+            $table->foreignId("id_modulo")->nullable()->references('id')->on('modulos');
+            $table->foreignId("id_submodulo")->nullable()->references('id')->on('submodulos');
             $table->string("nombre");
             $table->string("clave");
-            $table->string("descripcion");
+            $table->string("tipo");
+            $table->string("descripcion")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

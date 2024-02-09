@@ -17,4 +17,8 @@ class ExpedienteFoto extends Model
 
 
     ];
+    public function expediente()
+    {
+        return $this->belongsTo(Expediente::class, 'expedientes_id');
+    }
 }

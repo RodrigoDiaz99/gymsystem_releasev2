@@ -20,7 +20,7 @@ class CreateVouchersTable extends Migration
             $table->foreignId('corte_cajas_id')->constrained();
             $table->integer('cantidad');
             $table->double('precio_total');
-            $table->string("vendendor");
+            $table->string("vendedor");
             $table->double('cantidad_pagada')->nullable();
             $table->double('cambio')->nullable();
             $table->string('estatus');

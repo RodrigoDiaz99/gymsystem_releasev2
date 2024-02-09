@@ -6,14 +6,17 @@ use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\CorteCajaController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TipoMembresiaController;
 use App\Http\Controllers\UsuariosController;
+use App\Models\Permisos;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +29,12 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('loginScreen');
+ Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('auth.login');
+    })->name('loginScreen');
+});
+
 
 Auth::routes(['register' => false, 'login' => false]);
 
@@ -41,6 +47,7 @@ Route::get('/inicio', [HomeController::class, 'index'])->name('home');
 
 // Encerrado en el middleware de auth y permisos para comprobar si inició sesión y tiene permisos de módulo
 Route::middleware(['auth', 'permisos'])->group(function () {
+
     Route::controller(CategoriaProductosController::class)->prefix('categorias')->group(function () {
         Route::get('inicio', 'index')->name('categorias.index');
         Route::post('create', 'create')->name('categorias.create');
@@ -66,16 +73,16 @@ Route::middleware(['auth', 'permisos'])->group(function () {
 
     Route::controller(UsuariosController::class)->prefix('usuarios')->group(function () {
         Route::get('inicio', 'index')->name('usuarios.index');
+        require __DIR__ . '/ajax/roles.php';
         require __DIR__ . '/ajax/usuarios.php';
     });
 
-    Route::controller(RolesController::class)->prefix('roles')->group(function () {
-        require __DIR__ . '/ajax/roles.php';
-    });
 
     Route::controller(AdministracionController::class)->prefix('administracion')->group(function () {
         Route::get('modulos', 'modulos')->name('administracion.modulos');
         Route::get('getModulos', 'getModulos')->name('administracion.getModulos');
+        Route::post('getSubmodulos', 'getSubmodulos')->name('administracion.getSubmodulos');
+        Route::get('getMenus', 'getMenus')->name('administracion.getMenus');
         Route::post('guardarModulo', 'guardarModulo')->name('administracion.guardarModulo');
         Route::post('obtenerModulo', 'obtenerModulo')->name('administracion.obtenerModulo');
     });
@@ -90,14 +97,17 @@ Route::middleware(['auth', 'permisos'])->group(function () {
     Route::controller(ExpedienteController::class)->prefix('expediente')->group(function () {
         Route::get('inicio', 'index')->name('expediente.index');
         Route::get('create', 'create')->name('expediente.create');
-        Route::put('update/{id}', 'update')->name('membresias.update');
-        require __DIR__ . '/ajax/membresias.php';
+        Route::get('store', 'store')->name('expediente.store');
+        // Route::put('update/{id}', 'update')->name('membresias.update');
+        require __DIR__ . '/ajax/expediente.php';
     });
 
+    Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
+        Route::get('inicio', 'index')->name('corte.index');
+
+        require __DIR__ . '/ajax/cortecaja.php';
+    });
+
+
 });
 
-Route::controller(CorteCajaController::class)->prefix('corte')->group(function () {
-    Route::get('inicio', 'index')->name('corte.index');
-
-    require __DIR__ . '/ajax/cortecaja.php';
-});

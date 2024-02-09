@@ -1,4 +1,4 @@
-var permisosTree
+var tree
 $(function () {
     $.ajaxSetup({
         headers: {
@@ -6,10 +6,12 @@ $(function () {
         },
     });
     crearBootstrapTables();
-    obtenerRoles();
     jQueryValidator();
-
-
+    tree = $('#permisosTree').tree({
+        primaryKey: 'id',
+        uiLibrary: 'materialdesign',
+        checkboxes: true
+    });
 });
 
 
@@ -35,6 +37,11 @@ function crearBootstrapTables() {
                 field: "id",
                 title: "ID de Usuario",
                 visible: false
+            },
+            {
+                field: "usuario",
+                title: "Usuario",
+                visible: true
             },
             {
                 field: "nombre",
@@ -70,13 +77,133 @@ function crearBootstrapTables() {
 
 //#region onEvent
 $("#btnAgregarUsuarios").on('click', function () {
+    obtenerRoles();
+
     $("#usuarioModal *").val('');
     $("#user_id").val('')
+    $("#modoUsuario").val("crear")
     $("#usuarioModal").modal('show');
 })
+
+$("#nombre, #apellido_paterno").on("focusout", function () {
+    if ($("#modoUsuario").val() == "crear") {
+        let nombre = $("#nombre").val();
+        let apellido_paterno = $("#apellido_paterno").val();
+        let usuario = "";
+        let input_usuario = $("#usuario");
+
+        // Dividir el nombre por espacios en blanco y tomar el primer nombre
+        let nombres = nombre.split(' ');
+        let primerNombre = nombres[0];
+
+        // Dividir el apellido por espacios en blanco y tomar el primer apellido
+        let apellidos = apellido_paterno.split(' ');
+        let primerApellido = apellidos[0];
+
+        if (primerNombre != '' && primerApellido != '') {
+            usuario = primerNombre + '.' + primerApellido + '#';
+            input_usuario.val(usuario.toLowerCase());
+        } else {
+            input_usuario.val('');
+        }
+    }
+
+})
+
+$("#permisosModal").on("hide.bs.modal", function () {
+    $("#users_id_permisos").val('');
+})
+
+
 //#endregion
 
 //#region funciones
+
+$("#nombre, #apellido_paterno, #apellido_materno").on('input', function () {
+    var inputText = $(this).val();
+    var letrasAcentuadas = inputText.replace(/[^a-zA-ZáéíóúüÁÉÍÓÚÜ\s]/g, '');
+    $(this).val(letrasAcentuadas);
+
+    var palabras = $(this).val().split(" ");
+    var arr = [];
+    for (i in palabras) {
+        temp = palabras[i].toLowerCase();
+        temp = temp.charAt(0).toUpperCase() + temp.substring(1);
+        arr.push(temp);
+    }
+    $(this).val(arr.join(" "));
+});
+
+$('#telefono, #telefono_contacto').on('input', function () {
+    var inputText = $(this).val();
+    var numeros = inputText.replace(/[^0-9]/g, '');
+    $(this).val(numeros);
+
+});
+
+$("#btnGuardarPermisos").on('click', function () {
+
+    if ($("#users_id_permisos").val() <= 0 || $("#users_id_permisos").val() == '') {
+        return false;
+    }
+    var todosNodos = tree.getCheckedNodes();
+    var nodosValidos = [];
+
+    todosNodos.forEach(function (node) {
+        console.log(node);
+        if (node > 0) {
+            nodosValidos.push(node);
+        }
+    });
+
+    let data = {
+        id_permisos: nodosValidos,
+        id_users: $("#users_id_permisos").val()
+    }
+
+    $.ajax({
+        url: urlGuardarPermisos,
+        type: "POST",
+        data: data,
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Guardando información',
+                text: 'Espere un momento...',
+                didOpen: () => {
+                    swal.showLoading();
+                },
+            });
+        },
+        success: function (data) {
+            if (data.lSuccess) {
+                Swal.close();
+                $("#permisosModal").modal('hide');
+                Swal.fire({
+                    icon: 'success',
+                    title: "¡Correcto!",
+                    text: data.cMensaje,
+
+                })
+            } else {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error",
+                    text: data.cMensaje,
+                })
+            }
+        },
+        error: function () {
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: "Error",
+                text: "Ocurrió un error no controlado. Intente de nuevo.",
+            })
+        }
+    });
+})
+
 
 function saveUser() {
     let data = {
@@ -92,12 +219,68 @@ function saveUser() {
         fecha_nacimiento: $("#fecha_nacimiento").val(),
         ocupacion: $("#ocupacion").val()
     };
+    $.ajax({
+        url: urlSaveUser,
+        type: "POST",
+        encoding: "UTF-8",
+        cache: false,
+        data: data,
+        beforeSend: function () {
 
+            Swal.fire({
+                title: 'Guardando',
+                text: 'Espere un momento...',
+                didOpen: () => {
+                    swal.showLoading();
+                },
+            });
+        },
+        success: function (data) {
+            if (data.lSuccess) {
+                $("#usuarioModal").modal('hide');
+                Swal.close();
+                Swal.fire({
+                    icon: 'success',
+                    title: "¡Correcto!",
+                    html: data.cMensaje,
+
+                })
+                $("#gridUsuarios").bootstrapTable("refresh");
+            } else {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error",
+                    text: data.cMensaje,
+                })
+            }
+        },
+        error: function () {
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: "Error",
+                text: "Ocurrió un error no controlado. Intente de nuevo.",
+            })
+        }
+    });
+}
+
+function errorPermisos() {
+    Swal.fire({
+        icon: 'error',
+        title: "Error",
+        text: "Por defecto, los administradores tienen todos los permisos, por lo cual no se puede modificar.",
+    })
 }
 
 function getUserData(user_id) {
     $("#usuarioModal *").val('');
     $("#user_id").val('')
+    $("#modoUsuario").val("editar")
+
+    obtenerRoles();
+
     $.ajax({
         url: urlGetUserData,
         type: "POST",
@@ -156,7 +339,6 @@ function obtenerRoles() {
         url: urlGetRoles,
         type: "get",
         encoding: "UTF-8",
-        cache: false,
         beforeSend: function () {
             roleSelect.empty().attr('disabled', true).append($("<option></option>").attr("value", "").text("Cargando..."));
         },
@@ -172,9 +354,11 @@ function obtenerRoles() {
     });
 }
 
+
 function getPermisosUsuario(id, nombre) {
+    $("#users_id_permisos").val(id);
     $.ajax({
-        url: urlObtenerPermisosUsuario,
+        url: urlGetPermisos,
         type: 'post',
         data: {
             user_id: id
@@ -190,12 +374,7 @@ function getPermisosUsuario(id, nombre) {
         },
         success: function (data) {
             swal.close()
-            $('#permisosTree').tree({
-                primaryKey: 'id',
-                uiLibrary: 'materialdesign',
-                dataSource: data,
-                checkboxes: true
-            });
+            tree.render(data)
             $("#nombreUsuario").text(nombre)
             $("#permisosModal").modal("show");
         },
@@ -215,7 +394,10 @@ function accionesFormatter(value, row) {
     let nombre = row.nombre + ' ' + row.apellido_paterno + ' ' + row.apellido_materno;
     let htmlHeader = '<div>';
     html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getUserData(' + row.id + ')"><i class="fas fa-edit"></i></button>';
-    html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getPermisosUsuario(' + row.id + ',\'' + nombre + '\')"><i class="fas fa-key"></i></button>';
+
+    if (row.role.nombre != "Administrador") {
+        html += '<button type="button" class="btn btn-primary my-auto mx-1" onclick="getPermisosUsuario(' + row.id + ',\'' + nombre + '\')"><i class="fas fa-key"></i></button>';
+    }
     let htmlFooter = '</div>';
     return htmlHeader + html + htmlFooter;
 }
@@ -233,7 +415,10 @@ function jQueryValidator() {
             usuario: {
                 required: true
             },
-            usuario: {
+            role_id: {
+                required: true
+            },
+            nombre: {
                 required: true
             },
             apellido_paterno: {

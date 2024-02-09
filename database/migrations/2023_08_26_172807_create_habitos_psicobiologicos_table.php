@@ -16,23 +16,16 @@ class CreateHabitosPsicobiologicosTable extends Migration
         Schema::create('habitos_psicobiologicos', function (Blueprint $table) {
             $table->id();
             $table->string('numero_comidas');
-            $table->string('horas_descanso');
+            $table->string('ayunos');
+            $table->integer('horas_ayuno')->nullable();
+            $table->string('sueño');
             $table->string('micciones_dia');
             $table->string('micciones_noche');
             $table->string('evacuaciones');
-            $table->boolean('tabaco');
-            $table->boolean('alcohol');
+            $table->string('tabaco')->nullable();
+            $table->string('alcohol')->nullable();
 
-            $table->boolean('marihuana')->nullable();
-            $table->boolean('opiaceos')->nullable();
-            $table->boolean('cocaina')->nullable();
-            $table->boolean('heroina')->nullable();
-            $table->boolean('pastillas')->nullable();
-            $table->boolean('crack')->nullable();
-            $table->boolean('resistol')->nullable();
-            $table->boolean('gasolina')->nullable();
-            $table->boolean('thiner')->nullable();
-            $table->boolean('cristal')->nullable();
+
            $table->foreignId('expedientes_id')->constrained();
             $table->timestamps();
             $table->softDeletes();

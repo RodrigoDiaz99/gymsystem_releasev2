@@ -112,3 +112,5 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="{{asset('js/bootstrap-tokenfield.js')}}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>

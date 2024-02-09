@@ -9,8 +9,13 @@ class Modulos extends Model
 {
     use HasFactory;
 
+    public function permisos()
+    {
+        return $this->hasOne(Permisos::class, 'id_modulo');
+    }
+
     public function submodulos()
     {
-        return $this->hasMany(Modulos::class, 'modulo_padre');
+        return $this->hasMany(Submodulos::class, 'id_modulo');
     }
 }
