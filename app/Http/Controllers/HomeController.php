@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Ventas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $fechaActual = Carbon::now();
+        $inicioMes = $fechaActual->copy()->startOfMonth()->format('Y-m-d H:i:s');
+        $ventas = Ventas::whereBetween('created_at', [$inicioMes, $fechaActual->format('Y-m-d H:i:s')])->count();
+        $usuarios = User::whereBetween('created_at', [$inicioMes, $fechaActual->format('Y-m-d H:i:s')])->count();
+        return view('home',compact('ventas','usuarios'));
     }
 }
