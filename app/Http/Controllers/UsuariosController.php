@@ -39,6 +39,11 @@ class UsuariosController extends Controller
     public function saveUser(Request $request)
     {
         try {
+            $rolesCliente = Roles::where('nombre', 'Cliente')->first()->id;
+            $lCliente = false;
+            if ($rolesCliente == $request->role_id) {
+                $lCliente = true;
+            }
             DB::beginTransaction();
             $user = null;
             $cMensaje = null;
@@ -59,6 +64,7 @@ class UsuariosController extends Controller
             $user->telefono = $request->telefono;
             $user->email = $request->email;
             $user->telefono_contacto = $request->telefono_contacto;
+            $user->cliente = $lCliente;
             $user->fecha_nacimiento = $request->fecha_nacimiento;
             $user->ocupacion = $request->ocupacion;
             $user->roles_id = $request->role_id;

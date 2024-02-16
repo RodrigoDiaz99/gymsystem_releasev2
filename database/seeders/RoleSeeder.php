@@ -27,5 +27,17 @@ class RoleSeeder extends Seeder
             'descripcion' => 'Rol de empleado.',
             'orden' => '2'
         ]);
+
+        Roles::create([
+            'nombre' => 'Cliente',
+            'descripcion' => 'Rol de cliente.',
+            'orden' => '3'
+        ]);
+
+        Roles::create([
+            'nombre' => 'Cocinero',
+            'descripcion' => 'Rol de cocinero.',
+            'orden' => '4'
+        ]);
     }
 }

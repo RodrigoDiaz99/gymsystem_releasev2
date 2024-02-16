@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarritoHasProductosTable extends Migration
+class CreateBitacoraCancelacionesCarritosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateCarritoHasProductosTable extends Migration
      */
     public function up()
     {
-        Schema::create('carrito_has_productos', function (Blueprint $table) {
+        Schema::create('bitacora_cancelaciones_carritos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('carritos_id')->constrained();
-            $table->integer('productos_id');
-            $table->integer('cantidad');
-            $table->boolean('lMembresia');
-            $table->boolean('lPedido');
-            $table->double('precio_unitario')->nullable();
-            $table->double('precio_total')->nullable();
+            $table->string('motivo');
+            $table->foreignId('users_id')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +30,6 @@ class CreateCarritoHasProductosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carrito_has_productos');
+        Schema::dropIfExists('bitacora_cancelaciones_carritos');
     }
 }

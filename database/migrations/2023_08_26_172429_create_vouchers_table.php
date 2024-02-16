@@ -22,7 +22,9 @@ class CreateVouchersTable extends Migration
             $table->double('precio_total');
             $table->string("vendedor");
             $table->double('cantidad_pagada')->nullable();
-            $table->double('cambio')->nullable();
+            $table->double('cantidad_pagada_efectivo')->nullable();
+            $table->double('cantidad_pagada_tarjeta')->nullable();
+            $table->double('cambio_efectivo')->nullable();
             $table->string('estatus');
             $table->timestamps();
             $table->softDeletes();
