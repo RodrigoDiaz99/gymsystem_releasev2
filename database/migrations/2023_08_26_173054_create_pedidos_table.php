@@ -17,8 +17,9 @@ class CreatePedidosTable extends Migration
             $table->id();
             $table->string('numero_orden');
             $table->string('linea_referencia');
-            $table->string('comentarios');
+            $table->string('comentarios')->nullable();
             $table->string('estatus');
+            $table->boolean('cobrado');
             $table->foreignId('users_id')->constrained();
             $table->float('precio');
             $table->timestamps();
